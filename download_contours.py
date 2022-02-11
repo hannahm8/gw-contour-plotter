@@ -5,6 +5,7 @@
 
 import streamlit as st
 import requests, io
+from os.path import exists
 import json, tarfile
 import h5py
 import matplotlib.pyplot as plt
@@ -26,7 +27,7 @@ matplotlib.use('Agg')
 from matplotlib.backends.backend_agg import RendererAgg
 lock = RendererAgg.lock
 
-#import make_contour_plot
+import make_contour_plot
 
 st.title('Contour plot testing')
 
@@ -114,6 +115,8 @@ highlightsSelected = st.sidebar.multiselect('Event to highlight',
 
 
 
+color_file = './O3bScripts/colors.pkl'
+
 st.markdown("Let's download contour data.")
 
 
@@ -124,21 +127,64 @@ eventSelect = st.sidebar.multiselect('Which events would you like to see?',
 
 """
 
-
-address = "https://zenodo.org/api/files/d7a70f99-e16a-48a2-ae27-0b1968b0840c/contour_data.tar.gz"
-
-st.markdown("Downloading contours, hold on")
-r = requests.get(address)
-
-file_name = 'contour_data.tar.gz'
-with open(file_name, 'wb') as f:
-    f.write(r.content)
-
-my_tar = tarfile.open(file_name)
-my_tar.extractall('.')
-my_tar.close()
-
 contour_dir = './contour_data'
+if exists(contour_dir)==True:
+    st.markdown('the data already exists here')
+else: 
+    address = "https://zenodo.org/api/files/d7a70f99-e16a-48a2-ae27-0b1968b0840c/contour_data.tar.gz"
+    st.markdown("Downloading contours, hold on")
+    r = requests.get(address)
+    file_name = 'contour_data.tar.gz'
+    with open(file_name, 'wb') as f:
+        f.write(r.content)
+
+    my_tar = tarfile.open(file_name)
+    my_tar.extractall('.')
+    my_tar.close()
+
+#contour_dir = './contour_data'
+
+
+
+
+# chosing the plot
+plotChooseMcChiEff = 'Effective inspiral spin (y-axis) against source chirp mass (x-axis)'
+plotChooseMTq      = 'Mass ratio (y-axis) against total source mass (x-axis)'
+
+plotNames = [
+    plotChooseMcChiEff,
+    plotChooseMTq
+]
+
+def headerlabel(number):
+    return "{0}".format(plotNames[number-1])
+
+whichPlot = st.radio('What would you like to plot?', [1,2], format_func=headerlabel)
+
+
+
+if whichPlot==1:#plotChooseMcChiEff: 
+    var1, var2 = 'log_chirp_mass_source', 'chi_eff_infinity_only_prec_avg'
+
+elif whichPlot==2:#plotChooseMTq:
+
+    var1, var2 = 'log_total_mass_source', 'log_mass_ratio'
+
+# can we print the data now? 
+
+
+
+st.markdown('This will eventually plot the figure -- hopefully!')
+fig = make_contour_plot.make_plot(eventsSelected,
+                                  contour_dir,  
+                                  var1, var2,
+                                  highlightsSelected,
+                                  color_file,
+                                  names)
+st.pyplot(fig)
+
+
+
 
 
 
