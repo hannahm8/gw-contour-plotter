@@ -26,7 +26,7 @@ matplotlib.use('Agg')
 from matplotlib.backends.backend_agg import RendererAgg
 lock = RendererAgg.lock
 
-import make_contour_plot
+#import make_contour_plot
 
 st.title('Contour plot testing')
 
