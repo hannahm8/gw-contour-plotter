@@ -135,11 +135,9 @@ st.markdown('''
 **This is a work in progress!**
 
 This app shows selected parameter estimation results for gravitational wave events observed in the second part of the LIGO, Virgo, KAGRA Observing Run 3 (O3b). 
-''')
 
-st.header('How to use this app')
+**How to use this app**
 
-st.markdown('''
 Change which events to plot and highlight in the sidebar. Highlighting fewer events gives the best results as the plot can get quite cluttered!
 
 ''')
