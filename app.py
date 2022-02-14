@@ -29,11 +29,23 @@ lock = RendererAgg.lock
 
 import make_contour_plot
 
-st.title('Contour plot testing')
 
-st.markdown('This is a work in progress, the results and event list are not finalised.')
+def downloadData(directory):
+    if exists(directory)==True:
+        st.markdown('the data already exists here')
+    else: 
+        address = "https://zenodo.org/api/files/d7a70f99-e16a-48a2-ae27-0b1968b0840c/contour_data.tar.gz"
+        st.markdown("Downloading contours, hold on")
+        r = requests.get(address)
+        file_name = 'contour_data.tar.gz'
+        with open(file_name, 'wb') as f:
+            f.write(r.content)
 
-st.markdown('You can change which events to plot and highlight in the sidebar. Highlighting fewer events gives the best results as the plot can get quite cluttered!') 
+        my_tar = tarfile.open(file_name)
+        my_tar.extractall('.')
+        my_tar.close()
+    return None
+
 
 events = ['GW191103A', \
           'GW191105C', \
@@ -103,44 +115,39 @@ eventsFullNames = [ names['FULLNAME'][e] for e in events]
 
 
 # sidebar stuff
-eventsSelected = st.sidebar.multiselect('Events to be plotted', 
+highlightsSelected = st.sidebar.multiselect('Event to highlight',
+                                            eventsFullNames,
+                                            default=highlightDefaults)
+                                            
+eventsSelected = st.sidebar.multiselect('Events to be plotted (the default is all events):', 
                                          eventsFullNames, 
                                          default = eventsFullNames)
 
 
-highlightsSelected = st.sidebar.multiselect('Event to highlight',
-                                            eventsFullNames,
-                                            default=highlightDefaults)
 
 
+
+
+st.title('GWTC-3 contour plotter')
+
+st.markdown('''
+**This is a work in progress!**
+
+This app shows selected parameter estimation results for gravitational wave events observed in the second part of the LIGO, Virgo, KAGRA Observing Run 3 (O3b). 
+
+Change which events to plot and highlight in the sidebar. Highlighting fewer events gives the best results as the plot can get quite cluttered!
+
+''')
 
 
 color_file = './O3bScripts/colors.pkl'
-
-st.markdown("Let's download contour data.")
-
-
-"""
-eventSelect = st.sidebar.multiselect('Which events would you like to see?',
-                                     eventList,
-                                     default = 'GW190403_051519')
-
-"""
-
 contour_dir = './contour_data'
-if exists(contour_dir)==True:
-    st.markdown('the data already exists here')
-else: 
-    address = "https://zenodo.org/api/files/d7a70f99-e16a-48a2-ae27-0b1968b0840c/contour_data.tar.gz"
-    st.markdown("Downloading contours, hold on")
-    r = requests.get(address)
-    file_name = 'contour_data.tar.gz'
-    with open(file_name, 'wb') as f:
-        f.write(r.content)
 
-    my_tar = tarfile.open(file_name)
-    my_tar.extractall('.')
-    my_tar.close()
+st.markdown("Let's download contour data! to do: can we do a checksum to make sure we always have the latest version from zenodo? ")
+
+
+downloadData(contour_dir)
+
 
 #contour_dir = './contour_data'
 
@@ -185,7 +192,7 @@ st.pyplot(fig)
 
 
 
-
+st.markdown('to do: about this app')
 
 
 #st.markdown('writing virtual file')
@@ -198,44 +205,5 @@ st.pyplot(fig)
 
 
 
-"""
-# plotting 
-for ev in eventSelect: 
-    
-    st.markdown('Downloading data for {}. This will take a little time...'.format(ev))
-    address = 'https://zenodo.org/api/files/5fbd99a3-f2aa-4d6a-9409-4f767de2730a/IGWN-GWTC2p1-v1-{}_PEDataRelease.h5'.format(ev)
-    st.markdown(address)
-    r = requests.get(address)
 
-    st.markdown('writing virtual file')
-
-    virtualFile = io.BytesIO()
-    virtualFile.write(r.content)
-
-
-    data = h5py.File(virtualFile)
-    key0 = list(data.keys())[0]
-
-
-    dataarray = data[key0]
-
-    pedata = dataarray['posterior_samples'][()]
-
-    paramlist = pedata.dtype.names
-
-    m1 = pedata['mass_1_source']
-    m2 = pedata['mass_2_source']
-    
-    st.markdown(m1)
-    st.markdown(m2)
-    
-    fig, axs = plt.subplots(1, 2)
-    axs[0].hist(m1)
-    axs[0].set_xlabel('m1 source mass (solar masses)')
-    axs[1].hist(m2)
-    st.pyplot(fig)
-    
-    del(virtualFile)
-    #virtualFile.close()
-"""
 
