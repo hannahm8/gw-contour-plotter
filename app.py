@@ -134,7 +134,7 @@ st.title('GWTC-3 contour plotter')
 st.markdown('''
 **This is a work in progress!**
 
-This app shows selected parameter estimation results for gravitational wave events observed in the second part of the LIGO, Virgo, KAGRA Observing Run 3 (O3b). 
+This app shows selected parameter estimation results for gravitational wave events observed in the second part of the [LIGO](https://www.ligo.org/), [Virgo](https://www.virgo-gw.eu/), [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) Observing Run 3 (O3b). 
 
 **How to use this app**
 
