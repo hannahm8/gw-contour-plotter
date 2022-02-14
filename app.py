@@ -32,10 +32,10 @@ import make_contour_plot
 
 def downloadData(directory):
     if exists(directory)==True:
-        st.markdown('the data already exists here')
+        st.markdown('Checked data is available, getting ready to plot...')
     else: 
         address = "https://zenodo.org/api/files/d7a70f99-e16a-48a2-ae27-0b1968b0840c/contour_data.tar.gz"
-        st.markdown("Downloading contours, hold on")
+        st.markdown("Downloading contours, hold on - this can take several minutes...")
         r = requests.get(address)
         file_name = 'contour_data.tar.gz'
         with open(file_name, 'wb') as f:
@@ -138,15 +138,13 @@ This app shows selected parameter estimation results for gravitational wave even
 
 **How to use this app**
 
-Change which events to plot and highlight in the sidebar. Highlighting fewer events gives the best results as the plot can get quite cluttered!
+Change which events to plot and highlight in the sidebar. Highlighting fewer events gives the best results as the plot can get quite cluttered! Choose which parameter combination you would like to plot below. 
 
 ''')
 
 
 color_file = './O3bScripts/colors.pkl'
 contour_dir = './contour_data'
-
-st.markdown("Let's download contour data! to do: can we do a checksum to make sure we always have the latest version from zenodo? ")
 
 
 downloadData(contour_dir)
@@ -183,8 +181,6 @@ elif whichPlot==2:#plotChooseMTq:
 # can we print the data now? 
 
 
-
-st.markdown('This will eventually plot the figure -- hopefully!')
 fig = make_contour_plot.make_plot(eventsSelected,
                                   contour_dir,  
                                   var1, var2,
@@ -195,7 +191,16 @@ st.pyplot(fig)
 
 
 
-st.markdown('to do: about this app')
+st.markdown('''
+**About this app**
+
+This app produces contour plots of parameter estimation results from the third Gravitational Wave Transient Catalog (GWTC-3). 
+
+The plots are similar to Figures 8 and 9 in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606). The app uses data release material from (doi.org/10.5281/zenodo.5546662)[doi.org/10.5281/zenodo.5546662] (contour_data.tar.gz). 
+
+View the code for this app [here](https://github.com/hannahm8/gw-contour-plotter). 
+Thank you to Jonah Kanner for inspiration and guidance in creating this app. Visit Jonah Kanner's [GW Quickview app](https://share.streamlit.io/jkanner/streamlit-dataview/app.py). 
+''')
 
 
 #st.markdown('writing virtual file')
