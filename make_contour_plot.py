@@ -205,8 +205,8 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
     if var1=='log_chirp_mass_source' and var2=='chi_eff_infinity_only_prec_avg':
         ax.set_xlim(0.3,2.0)
         ax.set_ylim(-1,1)
-        ax.set_xlabel('Chirp mass in solar masses')
-        ax.set_ylabel('Effective inspiral spin')
+        ax.set_xlabel('Chirp mass in solar masses',fontsize=10)
+        ax.set_ylabel('Effective inspiral spin',fontsize=10)
         labelPositionY = 0.85
         labelSpacingY = 0.11
         labelPositionX = np.log10(105)
@@ -221,6 +221,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
         yPositions = (-1.0, -0.5, 0.0, 0.5, 1.0)
 
         ax.set_yticks(yPositions)
+        ax.set_yticklabels(yPositions,fontsize=10)
         # relabel the x-axis to be in solar masses (not log)
         xPositions = (np.log10(2),np.log10(3), np.log10(10), np.log10(20), np.log10(50))
         xLabels = ([round(10**p) for p in xPositions])
@@ -230,8 +231,8 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
     elif var1=='total_mass_source' and var2=='mass_ratio':
         ax.set_xlim(2,400)
         ax.set_ylim(0,1)
-        ax.set_xlabel('Total mass in solar masses')
-        ax.set_ylabel('Mass ratio')
+        ax.set_xlabel('Total mass in solar masses',fontsize=10)
+        ax.set_ylabel('Mass ratio',fontsize=10)
         labelPositionY = 0.9
         labelSpacingY = 0.06
         labelPositionX = 410
@@ -244,8 +245,8 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
     elif var1=='log_total_mass_source' and var2=='log_mass_ratio':
         ax.set_xlim(0.7,np.log10(400))
         ax.set_ylim(-1.8,0)
-        ax.set_xlabel('Total mass in solar masses')
-        ax.set_ylabel('Mass ratio')
+        ax.set_xlabel('Total mass in solar masses',fontsize=10)
+        ax.set_ylabel('Mass ratio',fontsize=10)
         labelPositionY = -0.2
         labelSpacingY = 0.1
         labelPositionX = np.log10(430)
@@ -268,14 +269,14 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
         yPositions = ([np.log10(v) for v in yValues])
         yLabels = (["{:.2f}".format(round(10**p,2)) for p in yPositions])
         ax.set_yticks(yPositions)
-        ax.set_yticklabels(yLabels)
+        ax.set_yticklabels(yLabels,fontsize=10)
         
         # relabelling the x-axis to solar masses (not log solar masses)
         xValues = (2, 4, 7, 10, 20, 40, 70, 100, 200, 400)
         xPositions = ([np.log10(v) for v in xValues])
         xLabels = ([round(10**p) for p in xPositions])
         ax.set_xticks(xPositions)
-        ax.set_xticklabels(xLabels)
+        ax.set_xticklabels(xLabels,fontsize=10)
 
     for event in events:
 
