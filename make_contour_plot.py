@@ -34,8 +34,16 @@ import requests
 
 #from plotting_utils import contour_label_positions, eta_to_q, q_to_eta
 
+def massRatioLines_m2Equals3():
+    q = np.arange(0.0, 1.1, 0.01)
+    Mt = 3.*(q+1)
+    return np.log10(Mt), np.log10(q)
 
-
+def massRatioLines_m1Equals3():
+    Mt = np.arange(2, 400, 1.)
+    q = 3. / (Mt - 3)
+    return np.log10(Mt), np.log10(q)
+    
 
 def get_key_from_value(d, val):
     """ 
@@ -160,10 +168,7 @@ def plot_bounded_2d_kde(data=None, data2=None, contour_data=None, levels=None,
         for i, coll in enumerate(cset.collections):
             level = coll.get_paths()[0]
 
-    print(type(cset))
-
     return ax
-
 
 
 
@@ -204,35 +209,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
         ax.set_ylabel('Effective inspiral spin')
         labelPositionY = 0.85
         labelSpacingY = 0.11
-        labelPositionX = 2.2
-        ax.text(labelPositionX,labelPositionY+labelSpacingY,'Highlighted events',
-                    color='k',
-                    bbox=dict(boxstyle='round',
-                              facecolor='white',
-                              edgecolor='none',
-                              alpha=.7))
-    elif var1=='total_mass_source' and var2=='mass_ratio':
-        ax.set_xlim(2,400)
-        ax.set_ylim(0,1)
-        ax.set_xlabel('Total mass in solar masses')
-        ax.set_ylabel('Mass ratio')
-        labelPositionY = 0.9
-        labelSpacingY = 0.06
-        labelPositionX = 450
-        ax.text(labelPositionX,labelPositionY+labelSpacingY,'Highlighted events',
-                    color='k',
-                    bbox=dict(boxstyle='round',
-                              facecolor='white',
-                              edgecolor='none',
-                              alpha=.7))
-    elif var1=='log_total_mass_source' and var2=='log_mass_ratio':
-        ax.set_xlim(0.7,3)
-        ax.set_ylim(-1.8,0)
-        ax.set_xlabel('Log Total mass in solar masses')
-        ax.set_ylabel('Log Mass ratio')
-        labelPositionY = -0.2
-        labelSpacingY = 0.1
-        labelPositionX = 3.1
+        labelPositionX = np.log10(105)
         ax.text(labelPositionX,labelPositionY+labelSpacingY,'Highlighted events',
                     color='k',
                     bbox=dict(boxstyle='round',
@@ -240,6 +217,65 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
                               edgecolor='none',
                               alpha=.7))
 
+        # reduce the number of ticks on the y axis
+        yPositions = (-1.0, -0.5, 0.0, 0.5, 1.0)
+
+        ax.set_yticks(yPositions)
+        # relabel the x-axis to be in solar masses (not log)
+        xPositions = (np.log10(2),np.log10(3), np.log10(10), np.log10(20), np.log10(50))
+        xLabels = ([round(10**p) for p in xPositions])
+        ax.set_xticks(xPositions)
+        ax.set_xticklabels(xLabels)                              
+                              
+    elif var1=='total_mass_source' and var2=='mass_ratio':
+        ax.set_xlim(2,400)
+        ax.set_ylim(0,1)
+        ax.set_xlabel('Total mass in solar masses')
+        ax.set_ylabel('Mass ratio')
+        labelPositionY = 0.9
+        labelSpacingY = 0.06
+        labelPositionX = 410
+        ax.text(labelPositionX,labelPositionY+labelSpacingY,'Highlighted events',
+                    color='k',
+                    bbox=dict(boxstyle='round',
+                              facecolor='white',
+                              edgecolor='none',
+                              alpha=.7))
+    elif var1=='log_total_mass_source' and var2=='log_mass_ratio':
+        ax.set_xlim(0.7,np.log10(400))
+        ax.set_ylim(-1.8,0)
+        ax.set_xlabel('Total mass in solar masses')
+        ax.set_ylabel('Mass ratio')
+        labelPositionY = -0.2
+        labelSpacingY = 0.1
+        labelPositionX = np.log10(430)
+        ax.text(labelPositionX,labelPositionY+labelSpacingY,'Highlighted events',
+                    color='k',
+                    bbox=dict(boxstyle='round',
+                              facecolor='white',
+                              edgecolor='none',
+                              alpha=.7))
+        # mass ratio lines
+        log10Mt, log10q = massRatioLines_m2Equals3()
+        ax.plot(log10Mt,log10q,color='k',alpha=0.3,ls='--')
+        ax.text(np.log10(3.4),np.log10(.35),r'$m_2=3M_{\odot}$',rotation=64,alpha=0.8)
+        log10Mt, log10q = massRatioLines_m1Equals3()
+        ax.plot(log10Mt,log10q,color='k',alpha=0.3,ls=':')
+        ax.text(np.log10(100.),np.log10(.02),r'$m_1=3M_{\odot}$',rotation=324,alpha=0.8)
+                              
+        # relabelling the y axis to mass ratio (instead of log10)
+        yValues = (.02,.03,.05,.08,.12,.20,.30,.45,.65,1.)
+        yPositions = ([np.log10(v) for v in yValues])
+        yLabels = (["{:.2f}".format(round(10**p,2)) for p in yPositions])
+        ax.set_yticks(yPositions)
+        ax.set_yticklabels(yLabels)
+        
+        # relabelling the x-axis to solar masses (not log solar masses)
+        xValues = (2, 4, 7, 10, 20, 40, 70, 100, 200, 400)
+        xPositions = ([np.log10(v) for v in xValues])
+        xLabels = ([round(10**p) for p in xPositions])
+        ax.set_xticks(xPositions)
+        ax.set_xticklabels(xLabels)
 
     for event in events:
 
@@ -298,16 +334,43 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
     #fig.tight_layout()
 
 
-    ax.set_xscale('log')
-    xlim = ax.get_xlim()
+    #ax.set_xscale('log')
+    #xlim = ax.get_xlim()
+    # we want 
+    
+    
+
+    #ax.set_xticklabels(labels)
+    
+    
+    #print('xticks ', ax.get_xticks)
+    #ticks = [1, 2, 4, 7, 10, 20, 40, 70, 100]
+    #ax.set_xticks([np.log10(tick) for tick in ticks])
+    #ax.set_xticklabels(['${}$'.format(tick) for tick in ticks])
+        #ax.set_xticks(np.log10([3, 5, 6, 8, 9, 15, 30, 50, 60, 80, 90]), minor=True) 
+        
+        
+    #ticks = [0.02, 0.03, 0.05, 0.08, 0.12, 0.20, 0.30, 0.45, 0.65, 1]
+    #ax.set_yticks([np.log10(tick) for tick in ticks])
+    #ax.set_yticklabels(['${:.1f}$'.format(tick) for tick in ticks])
+      
+    #ticks = [-1.8, -1.6, -1.4, -1.2, -1.0, -0.8, -0.6, -0.4, -0.2]
+    #ax.set_xticks([np.log10(tick) for tick in ticks])
+    #ax.set_xticklabels(['${}$'.format(tick) for tick in ticks])
+    #ax.set_xticks(np.log10([5, 6, 8, 9, 15, 30, 50, 60, 80, 90, 150, 300]), minor=True)
+    
     #newticks = pu.custom_log_ticks(xlim,[1,2,4,7])
+    #newticks = ax.get_xticks()
+    #newticks[3] = '5'    
     #ax.set_xticks(newticks)
+    #print('xlim', xlim)
+    #print(ax.get_xticks())
 
-    ax.tick_params(axis='both',size=6,labelsize=12)
+    #ax.tick_params(axis='both',size=6,labelsize=12)
 
-    tick = ScalarFormatter()
-    ax.xaxis.set_major_formatter(tick)
-    ax.yaxis.set_major_formatter(tick)
+    #tick = ScalarFormatter()
+    #ax.xaxis.set_major_formatter(tick)
+    #ax.yaxis.set_major_formatter(tick)
 
     #plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left')
 
