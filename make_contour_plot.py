@@ -278,6 +278,33 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
         ax.set_xticks(xPositions)
         ax.set_xticklabels(xLabels,fontsize=10)
 
+    elif var1=='mass_1_source' and var2=='mass_2_source':
+        labelPositionY = 9.#-0.2
+        labelSpacingY = 0.6
+        labelPositionX = 210
+        ax.set_xlim(2,200)
+        ax.set_ylim(1,100)
+        ax.set_xscale('log')
+        ax.set_yscale('log')
+
+        ax2 = ax.twinx()
+        ax2.yaxis.set_ticklabels([])
+        ax2.tick_params(right=False)
+        ax2.set_ylim(0,10)
+        ax2.grid(False)
+        
+        m = np.logspace(0,np.log10(200),500)
+        ax.plot(m,m,color='k')
+        ax.fill_between(m,m,200,color='lightgrey')
+        ax.set_xlabel('Primary mass in solar masses',fontsize=10)
+        ax.set_ylabel('Secondary mass in solar masses',fontsize=10)
+        
+        ax2.text(labelPositionX,labelPositionY+labelSpacingY,'Highlighted events',
+                    color='k',
+                    bbox=dict(boxstyle='round',
+                              facecolor='white',
+                              edgecolor='none',
+                              alpha=.7))
     for event in events:
 
         # swap full name for nickname for getting contour file
@@ -308,9 +335,15 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
             #display_name=event
             display_name = event.replace('_','-')
 
-            ax.text(labelPositionX,labelPositionY,display_name,
-                    fontdict=dict(color=kwargs['colors']),
-                    bbox=dict(boxstyle='round',facecolor='white',edgecolor='none',alpha=.7))
+            if var1=='mass_1_source':
+                ax2.text(labelPositionX,labelPositionY,display_name,
+                        fontdict=dict(color=kwargs['colors']),
+                        bbox=dict(boxstyle='round',facecolor='white',edgecolor='none',alpha=.7))
+            else: 
+                ax.text(labelPositionX,labelPositionY,display_name,
+                        fontdict=dict(color=kwargs['colors']),
+                        bbox=dict(boxstyle='round',facecolor='white',edgecolor='none',alpha=.7))
+                        
             #ax.text(positions[0],positions[1],display_name,rotation=positions[2],
             #        fontdict=dict(color=kwargs['colors']),
             #        bbox=dict(boxstyle='round',facecolor='white',edgecolor='none',alpha=0.7),

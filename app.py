@@ -128,7 +128,7 @@ eventsSelected = st.sidebar.multiselect('Events to be plotted (the default is al
 
 
 
-st.title('GWTC-3 contour plotter')
+st.title('GWTC-3 contour plotters')
 
 
 st.markdown('''
@@ -147,10 +147,10 @@ color_file = './O3bScripts/colors.pkl'
 contour_dir = './contour_data'
 
 
-downloadData(contour_dir)
+#downloadData(contour_dir)
 
 
-#contour_dir = './contour_data'
+contour_dir = '/home/hannahm/Documents/GWTC3/contour_data/'
 
 
 
@@ -158,16 +158,18 @@ downloadData(contour_dir)
 # chosing the plot
 plotChooseMcChiEff = 'Effective inspiral spin (y-axis) against source chirp mass (x-axis)'
 plotChooseMTq      = 'Mass ratio (y-axis) against total source mass (x-axis)'
+plotChooseM1M2     = 'Primary mass (x-axis) and secondary mass (y-axis)'
 
 plotNames = [
     plotChooseMcChiEff,
-    plotChooseMTq
+    plotChooseMTq,
+    plotChooseM1M2
 ]
 
 def headerlabel(number):
     return "{0}".format(plotNames[number-1])
 
-whichPlot = st.radio('What would you like to plot?', [1,2], format_func=headerlabel)
+whichPlot = st.radio('What would you like to plot?', [1,2,3], format_func=headerlabel)
 
 
 
@@ -177,6 +179,10 @@ if whichPlot==1:#plotChooseMcChiEff:
 elif whichPlot==2:#plotChooseMTq:
 
     var1, var2 = 'log_total_mass_source', 'log_mass_ratio'
+
+elif whichPlot==3: #plotChooseM1M2
+
+    var1, var2 = 'mass_1_source', 'mass_2_source'
 
 # can we print the data now? 
 
@@ -189,6 +195,17 @@ fig = make_contour_plot.make_plot(eventsSelected,
                                   names)
 st.pyplot(fig)
 
+
+st.header('A guide to the plots')
+st.markdown('''
+Here are some useful definitions and links to find out more. 
+
+* **Solar mass**: a unit of mass common in astrophysics. It is the number of times the mass of our Sun. 
+* **Primary mass**: the mass of the more massive object in the binary (in solar masses). 
+* **Secondary mass** the mass of the less massive object in the binary (in solar masses). 
+* **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. Click [here](https://en.wikipedia.org/wiki/Chirp_mass) for the definition. 
+* **Mass ratio**: the ratio of the primary and secondary masses, defined as the secondary mass divided by the primary mass. 
+''')
 
 
 st.markdown('''
