@@ -238,7 +238,7 @@ Note that we define the masses in the source reference frame.
 ''')
 
 
-st.subsubheader('Find out more')
+st.subheader('Find out more')
 st.markdown('''
 This app uses data release products associated with GWTC-3, the third Gravitational-Wave Transient Catalog from the [LIGO](https://www.ligo.org/) Scientific Collaboration, the [Virgo](https://www.virgo-gw.eu/) Collaboation, and the [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) Collaboration.
 The contour plots produced by this app are similar to Figures 8 and 9 in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606). 
