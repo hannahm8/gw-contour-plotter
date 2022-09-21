@@ -46,42 +46,44 @@ def downloadData(directory):
         my_tar.close()
     return None
 
-
-events = ['GW191103A', \
-          'GW191105C', \
-          'GW191109A', \
-          'GW191113B', \
-          'GW191126C', \
-          'GW191127B', \
-          'GW191129G', \
-          'GW191204A', \
-          'GW191204G', \
-          'GW191215G', \
-          'GW191216G', \
-          'GW191219E', \
-          'GW191222A', \
-          'GW191230H', \
-          '200105F', \
-          'GW200112H', \
-          'GW200115A', \
-          'GW200128C', \
-          'GW200129D', \
-          'GW200202F', \
-          'GW200208G', \
-          'GW200208K', \
-          'GW200209E', \
-          'GW200210B', \
-          'GW200216G', \
-          'GW200219D', \
-          'GW200220E', \
-          'GW200224H', \
-          'GW200225B', \
-          'GW200302A', \
-          'GW200306A', \
-          'GW200308G', \
-          'GW200311L', \
-          'GW200316I', \
+#GW191129G'
+events = ['GW191103A',
+          'GW191105C',
+          'GW191109A',
+          'GW191113B',
+          'GW191126C',
+          'GW191127B',
+          'GW191129G',
+          'GW191204A',
+          'GW191204G',
+          'GW191215G',
+          'GW191216G',
+          'GW191219E',
+          'GW191222A',
+          'GW191230H',
+          '200105F',
+          'GW200112H',
+          'GW200115A',
+          'GW200128C',
+          'GW200129D',
+          'GW200202F',
+          'GW200208G',
+          'GW200208K',
+          'GW200209E',
+          'GW200210B',
+          'GW200216G',
+          'GW200219D',
+          'GW200220E',
+          'GW200220H',
+          'GW200224H',
+          'GW200225B',
+          'GW200302A',
+          'GW200306A',
+          'GW200308G',
+          'GW200311L',
+          'GW200316I',
           'GW200322G']
+
 
 #posHighlight = ['GW191230A', 'GW191109A', 'GW191129A', \
 #                 'GW200115A', '200105A', 'GW200311A']
@@ -94,13 +96,6 @@ highlightDefaults = ['GW191204_171526', \
                      'GW200220_061928', \
                      'GW200225_060421']
 
-#highlightDefaults = ['GW191109_010717', \
-#                     'GW191215_223052', \
-#                     'GW191230_180458', \
-#                     'GW200105_162426', \
-#                     'GW200115_042309', \
-#                     'GW200210_092254', \
-#                     'GW200316_215756' ]
 
 
 # get namaees
@@ -128,37 +123,44 @@ eventsSelected = st.sidebar.multiselect('Events to be plotted (the default is al
 
 
 
-st.title('GWTC-3 contour plotters')
+st.title('O3b contour plotter')
 
 
 st.markdown('''
-**This is a work in progress!**
-
-This app shows selected parameter estimation results for gravitational wave events observed in the second part of the [LIGO](https://www.ligo.org/), [Virgo](https://www.virgo-gw.eu/), [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) Observing Run 3 (O3b). 
-
-**How to use this app**
-
-Change which events to plot and highlight in the sidebar. Highlighting fewer events gives the best results as the plot can get quite cluttered! Choose which parameter combination you would like to plot below. 
-
+This app shows selected parameter estimation results for gravitational-wave events observed during the second part of the [LIGO](https://www.ligo.org/), [Virgo](https://www.virgo-gw.eu/), [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) Observing Run 3 (O3b).
+For more information about O3b, have a look at the links at the bottom of this page.  
 ''')
 
 
+
+
+st.subheader('How to use this app')
+
+st.markdown('''Choose which events to plot and highlight in the sidebar. Highlighting fewer events gives the best results as the plot can get quite cluttered!
+
+Select which parameter combination you would like to see below. There is more information about what these parameters are. 
+''')
+
+
+color_file = '/home/hannahm/repositories/o3b-cbc-catalog/scripts/plotting/colors.pkl'
 color_file = './O3bScripts/colors.pkl'
 contour_dir = './contour_data'
 
 
+#################################################
+# Tempory! for now we are not doing this: 
 #downloadData(contour_dir)
-
-
+# as the contours have not been updated on zenodo
+# instead, we are using local contours:
 contour_dir = '/home/hannahm/Documents/GWTC3/contour_data/'
 
 
 
 
 # chosing the plot
-plotChooseMcChiEff = 'Effective inspiral spin (y-axis) against source chirp mass (x-axis)'
-plotChooseMTq      = 'Mass ratio (y-axis) against total source mass (x-axis)'
-plotChooseM1M2     = 'Primary mass (x-axis) and secondary mass (y-axis)'
+plotChooseMcChiEff = 'Source chirp mass (x-axis) and effective inspiral spin (y-axis).'
+plotChooseMTq      = 'Source total mass (x-axis) and mass ratio (y-axis).'
+plotChooseM1M2     = 'Primary mass (x-axis) and secondary mass (y-axis).'
 
 plotNames = [
     plotChooseMcChiEff,
@@ -184,8 +186,6 @@ elif whichPlot==3: #plotChooseM1M2
 
     var1, var2 = 'mass_1_source', 'mass_2_source'
 
-# can we print the data now? 
-
 
 fig = make_contour_plot.make_plot(eventsSelected,
                                   contour_dir,  
@@ -195,38 +195,66 @@ fig = make_contour_plot.make_plot(eventsSelected,
                                   names)
 st.pyplot(fig)
 
+if whichPlot ==1: 
+    st.markdown('''
+**About this plot:**
+Credible-region contours in the plane of chirp mass and effective inspiral spin (see definitions below). 
+Each contour represents the 90% credible region for an O3b gravitational-wave candidate. 
+The dotted line marks a zero effective inspiral spin. 
+''')
 
-st.header('A guide to the plots')
+elif whichPlot ==2: 
+    st.markdown('''
+**About this plot:**
+Credible-region contours in the plane of total mass and mass ratio (see definitions below). 
+Each contour represents the 90% credible region for an O3b gravitational-wave candidate. 
+The dotted lines shows the region where both the primary and secondary masses can have a mass below 3 solar masses. 
+''')
+
+elif whichPlot ==3: 
+    st.markdown('''
+**About this plot:**
+Credible-region contours in the plane of primary mass and secondary mass (see definitions below). 
+Each contour represents the 90% credible region for an O3b gravitational-wave candidate. 
+We define the parameters so that the primary mass is greater than the secondary mass so that there are no contours inside the shaded region. 
+''')
+
+
+
+
+st.subheader('What do the parameters mean?')
 st.markdown('''
 Here are some useful definitions and links to find out more. 
 
 * **Solar mass**: a unit of mass common in astrophysics. It is the number of times the mass of our Sun. 
 * **Primary mass**: the mass of the more massive object in the binary (in solar masses). 
 * **Secondary mass** the mass of the less massive object in the binary (in solar masses). 
-* **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. Click [here](https://en.wikipedia.org/wiki/Chirp_mass) for the definition. 
-* **Mass ratio**: the ratio of the primary and secondary masses, defined as the secondary mass divided by the primary mass. 
+* **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. Click [here](https://en.wikipedia.org/wiki/Chirp_mass) for the mathematical definition. 
+* **Mass ratio**: the ratio the object masses. It is defined as the secondary mass divided by the primary mass. 
+* **Total mass**: the sum of the primary and the secondary masses.
+* **Effective inspiral spin**: ....
+
+Note that we define the masses in the source reference frame.  
 ''')
 
 
+st.subsubheader('Find out more')
 st.markdown('''
-**About this app**
+This app uses data release products associated with GWTC-3, the third Gravitational-Wave Transient Catalog from the [LIGO](https://www.ligo.org/) Scientific Collaboration, the [Virgo](https://www.virgo-gw.eu/) Collaboation, and the [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) Collaboration.
+The contour plots produced by this app are similar to Figures 8 and 9 in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606). 
+The contour data (`contour_data.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release]([doi.org/10.5281/zenodo.5546662]) on Zenodo.
 
-This app produces contour plots of parameter estimation results from the third Gravitational Wave Transient Catalog (GWTC-3). 
 
-The plots are similar to Figures 8 and 9 in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606). The app uses data release material from (doi.org/10.5281/zenodo.5546662)[doi.org/10.5281/zenodo.5546662] (contour_data.tar.gz). 
+Useful links: 
+* Read the [GWTC-3 paper](https://arxiv.org/abs/2111.03606).
+* Visit the [GWTC-3 data release](https://www.gw-openscience.org/GWTC-3/) at the Gravitational Wave Open Science Centre. 
+* Read the [GWTC-3 science summary](https://www.ligo.org/science/Publication-O3bCatalog/index.php).
+* Read [behind the scenes stories](https://www.ligo.org/magazine/LIGO-magazine-issue20.pdf#page=6) from some members of the GWTC-3 team in the [LIGO Magazine](https://www.ligo.org/magazine).
+* View the code for this app [here](https://github.com/hannahm8/gw-contour-plotter). 
 
-View the code for this app [here](https://github.com/hannahm8/gw-contour-plotter). 
-Thank you to Jonah Kanner for inspiration and guidance in creating this app. Visit Jonah Kanner's [GW Quickview app](https://share.streamlit.io/jkanner/streamlit-dataview/app.py). 
+**Acknowledgements:**
+Thanks to Jonah Kanner for inspiration and guidance in creating this app. Check out Jonah's GW Quickview app [here](https://share.streamlit.io/jkanner/streamlit-dataview/app.py). 
 ''')
-
-
-#st.markdown('writing virtual file')
-#virtualFile = io.BytesIO()
-#virtualFile.write(r.content)
-
-#my_tar = tarfile.open(virtualFile)
-#my_tar.extractall('.')
-#my_tar.close()
 
 
 
