@@ -142,7 +142,6 @@ Select which parameter combination you would like to see below. There is more in
 ''')
 
 
-color_file = '/home/hannahm/repositories/o3b-cbc-catalog/scripts/plotting/colors.pkl'
 color_file = './O3bScripts/colors.pkl'
 contour_dir = './contour_data'
 
