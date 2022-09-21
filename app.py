@@ -226,13 +226,13 @@ st.subheader('What do the parameters mean?')
 st.markdown('''
 Here are some useful definitions and links to find out more. 
 
-* **Solar mass**: a unit of mass common in astrophysics. It is the number of times the mass of our Sun. 
+* **Solar mass**: The mass of the Sun. [Solar mass](https://en.wikipedia.org/wiki/Solar_mass) is a common unit for representing masses in astronomy.
 * **Primary mass**: the mass of the more massive object in the binary (in solar masses). 
 * **Secondary mass** the mass of the less massive object in the binary (in solar masses). 
 * **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. Click [here](https://en.wikipedia.org/wiki/Chirp_mass) for the mathematical definition. 
 * **Mass ratio**: the ratio the object masses. It is defined as the secondary mass divided by the primary mass. 
 * **Total mass**: the sum of the primary and the secondary masses.
-* **Effective inspiral spin**: ....
+* **Effective inspiral spin**: the best-measured parameter encoding spin information in a gravitational-wave signal. It describes how much of each individual black hole's spin is rotating in the same way as the orbital rotation (e.g. if the spin and the orbit are both clockwise or anticlockwise). 
 
 Note that we define the masses in the source reference frame.  
 ''')
