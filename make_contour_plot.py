@@ -257,6 +257,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
         ax.set_xticks(xPositions)
         ax.set_xticklabels(xLabels,fontsize=10)
 
+
     elif var1=='mass_1_source' and var2=='mass_2_source':
     
         # axis ranges and labels
@@ -287,10 +288,23 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,color_file,namesDict
                               edgecolor='none',
                               alpha=.7))
 
+
+        xValues = (2, 4, 7, 10, 20, 40, 70, 100, 200)
+        ax.set_xticks(xValues)
+        ax.set_xticklabels(xValues,fontsize=10)
+        yValues = (1, 2, 4, 7, 10, 20, 40, 70, 100, 200)
+        ax.set_yticks(yValues)
+        ax.set_yticklabels(yValues,fontsize=10)
+        
         # make the shaded region for m2>m1                              
         m = np.logspace(0,np.log10(200),500)
         ax.plot(m,m,color='k')
         ax.fill_between(m,m,200,color='lightgrey')
+        
+        # shaded region for q=/50
+        m2=m/50
+        ax.plot(m,m2,color='k')
+        ax.fill_between(m,m2,1,color='lightgrey')
 
 
     # cound the number of highlighted events - this is so we can split the

@@ -109,6 +109,8 @@ eventsFullNames = [ names['FULLNAME'][e] for e in events]
 
 
 
+st.set_page_config(page_title='GW Contour Plotter', page_icon=":crocodile:")
+
 # sidebar stuff
 highlightsSelected = st.sidebar.multiselect('Event to highlight',
                                             eventsFullNames,
@@ -117,6 +119,7 @@ highlightsSelected = st.sidebar.multiselect('Event to highlight',
 eventsSelected = st.sidebar.multiselect('Events to be plotted (the default is all events):', 
                                          eventsFullNames, 
                                          default = eventsFullNames)
+
 
 
 
@@ -215,7 +218,7 @@ elif whichPlot ==3:
 **About this plot:**
 Credible-region contours in the plane of primary mass and secondary mass (see definitions below). 
 Each contour represents the 90% credible region for an O3b gravitational-wave candidate. 
-We define the parameters so that the primary mass is greater than the secondary mass so that there are no contours inside the shaded region. 
+We define the parameters so that the primary mass is greater than the secondary mass so that there are no contours inside the upper shaded region (mass ratios great than 1). The lower shaded region indicates a mass ratios less than 1/50. 
 ''')
 
 
@@ -225,7 +228,7 @@ st.subheader('What do the parameters mean?')
 st.markdown('''
 Here are some useful definitions and links to find out more. 
 
-* **Solar mass**: The mass of the Sun. [Solar mass](https://en.wikipedia.org/wiki/Solar_mass) is a common unit for representing masses in astronomy.
+* **Solar mass**: the mass of the Sun. [Solar mass](https://en.wikipedia.org/wiki/Solar_mass) is a common unit for representing masses in astronomy.
 * **Primary mass**: the mass of the more massive object in the binary (in solar masses). 
 * **Secondary mass** the mass of the less massive object in the binary (in solar masses). 
 * **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. Click [here](https://en.wikipedia.org/wiki/Chirp_mass) for the mathematical definition. 
