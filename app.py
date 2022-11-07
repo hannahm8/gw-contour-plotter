@@ -11,9 +11,9 @@ import h5py
 import matplotlib.pyplot as plt
 import json
 import pickle
-import argparse
+#import argparse
 import pesummary
-from pesummary.io import read
+#from pesummary.io import read
 #from peutils import *
 #from makewaveform import make_waveform, plot_gwtc1_waveform
 #from makealtair import make_altair_plots, get_params_intersect
@@ -219,6 +219,7 @@ elif whichPlot ==3:
 Credible-region contours in the plane of primary mass and secondary mass (see definitions below). 
 Each contour represents the 90% credible region for an O3b gravitational-wave candidate. 
 We define the parameters so that the primary mass is greater than the secondary mass so that there are no contours inside the upper shaded region (mass ratios great than 1). The lower shaded region indicates a mass ratios less than 1/50. 
+**To do - add explanation about mass ratio**
 ''')
 
 
@@ -242,10 +243,10 @@ Note that we define the masses in the source reference frame.
 
 st.subheader('Find out more')
 st.markdown('''
-This app uses data release products associated with GWTC-3, the third Gravitational-Wave Transient Catalog from the [LIGO](https://www.ligo.org/) Scientific Collaboration, the [Virgo](https://www.virgo-gw.eu/) Collaboation, and the [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) Collaboration.
+This app uses data release products associated with GWTC-3, the third Gravitational-Wave Transient Catalog from the [LIGO Scientific Collaboration](https://www.ligo.org/), the [Virgo Collaboration](https://www.virgo-gw.eu/), and the [KAGRA Collaboration](https://gwcenter.icrr.u-tokyo.ac.jp/en/).
 The contour plots produced by this app are similar to Figures 8 and 9 in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606). 
 The contour data (`contour_data.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release]([doi.org/10.5281/zenodo.5546662]) on Zenodo.
-
+The [GWTC-3 Parameter Estimation Data Release]([doi.org/10.5281/zenodo.5546662]) Zenodo page also includes a python notebook (`O3bPEContourPlots.ipynb`) with more information about these contour plots and allows further customisation of the plots. **The notebook will be in v2 of the data release - current version is [here](https://git.ligo.org/hannah.middleton/o3b-data-release-material/-/blob/main/PEMaterial/O3bPEContourPlots.ipynb).**
 
 Useful links: 
 * Read the [GWTC-3 paper](https://arxiv.org/abs/2111.03606).
