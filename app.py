@@ -249,8 +249,8 @@ Note that we define the masses in the source reference frame.
 st.subheader('Find out more')
 st.markdown('''
 This app uses data release products associated with GWTC-3, the third Gravitational-Wave Transient Catalog from the [LIGO Scientific Collaboration](https://www.ligo.org/), the [Virgo Collaboration](https://www.virgo-gw.eu/), and the [KAGRA Collaboration](https://gwcenter.icrr.u-tokyo.ac.jp/en/).
-The contour plots produced by this app are similar to Figures 8 and 9 in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606). 
-The contour data (`contour_data.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release](https://doi.org/10.5281/zenodo.5546662) on Zenodo - this page also includes a python notebooks (`O3bPEContourPlots.ipynb`) with more information about these results and enabling further customisation of the plots. 
+The contour plots produced by this app are similar to figures 8 and 9 in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606). 
+The contour data (`contour_data.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release](https://doi.org/10.5281/zenodo.5546662) on Zenodo - this page also includes a python notebook (`O3bPEContourPlots.ipynb`) with more information about these results and enabling further customisation of the plots. 
 
 Useful links: 
 * Read the [GWTC-3 paper](https://arxiv.org/abs/2111.03606).
