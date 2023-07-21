@@ -78,7 +78,7 @@ def unpickle_contour_data(event, param_name, contour_dir):
     Parameters
     ----------
     event: string
-        the nickname of the event, e.g. GW191103A
+        the nickname of the event, e.g., GW191103A
         
     param_name: string
         the name of the two parameters to be plotted, must be one of: 
@@ -90,8 +90,7 @@ def unpickle_contour_data(event, param_name, contour_dir):
         the path to the contour directory (see above)
     
     """
-    infile = os.path.join(contour_dir,'{}_{}_contour_data.pkl'\
-                                        .format(event, param_name))
+    infile = os.path.join(contour_dir, '{}_{}_contour_data.pkl'.format(event, param_name))
     with open(infile, 'rb') as inp:
         cdata = pickle.load(inp)
         
@@ -103,8 +102,8 @@ def plot_bounded_2d_kde(data=None, data2=None, contour_data=None, levels=None,
                         shade_lowest=True, ax=None, verbose=False, **kwargs):
 
     """ 
-    This function creates the contours at some chosen credible level, 
-    set by with the levels variable
+    This function creates the contours at some chosen credible level
+    The value of levels is passed from the make_contour_plot function.
     """
 
     if ax is None:
@@ -137,7 +136,6 @@ def plot_bounded_2d_kde(data=None, data2=None, contour_data=None, levels=None,
         else:
             cmap = plt.cm.get_cmap(cmap)
 
-
     kwargs["cmap"] = cmap
     contour_func = ax.contourf if shade else ax.contour
 
@@ -158,11 +156,98 @@ def plot_bounded_2d_kde(data=None, data2=None, contour_data=None, levels=None,
 
 
 
-def make_plot(events,contour_dir,var1,var2,highlight_events,\
-              color_file,names_dictionary):
+def makeContourPlot(var1,var2,names,colors,highlight_events):
+    
     """
     Read the contour data and call the contour plotting function 
     (plot_bounded_2d_kde). 
+    
+    Parameters
+    ----------
+    var1: string
+        the name of parameter 1. Must be one of: 
+         - 'mass_1_source'
+         - 'log_chirp_mass_source',
+         - 'log_total_mass_source'.
+        Note: this must match with the correct var2.
+    
+    var2: string
+        the name of parameter 2. Must be one of: 
+         - 'mass_2_source'
+         - 'chi_eff_infinity_only_prec_avg',
+         - 'log_mass_ratio',
+        Note: this must match with the correct var1.
+    
+    colors: dictionary
+        contains the color to plot each event in so that the 
+        plots match the paper.
+        
+    highlight_events: list
+        the list of events to be highlighted (plotted in color).
+    """
+
+    # figure size 
+    fig,ax = plt.subplots(figsize=(10,5.5))
+    
+    # line style
+    ls = '-'
+
+    # loop over the event names (short)
+    shortNames = names.keys()
+    
+    for event in shortNames:
+        
+        
+        contour_data = unpickle_contour_data(event, \
+                                             '{}_{}'.format(var1,var2), \
+                                             contour_dir)
+
+        # get the full name for this event
+        fullname = names[event]
+
+        # Plotting the contours. 
+        if fullname in highlight_events:
+            """
+            If the event is in the highlighted list, plot the contour
+            in color
+            """
+            kwargs = {
+                'ax':ax,
+                'linestyles':ls,
+                'colors':colors[event],
+                'linewidths':1.5,'zorder':100,
+                }
+            plot_bounded_2d_kde(contour_data=contour_data,
+                                levels=[0.9], 
+                                **kwargs)
+        else: 
+            """
+            Else, plot the contour in gray.
+            """
+            kwargs = {
+                'ax':ax,
+                'linestyles':None,
+                'colors':'k',
+                'linewidths':0.5,
+                'alpha':0.3
+                }
+            ax = plot_bounded_2d_kde(contour_data=contour_data, 
+                                     levels=[0.9], 
+                                     **kwargs)
+    # set no grid
+    ax.grid(False)
+        
+    return fig,ax
+    
+    
+
+
+def make_plot(events,contour_dir,var1,var2,highlight_events,
+              color_file,names_dictionary):
+
+    """
+    Read the contour data and call the contour plotting function 
+    for each plot variation (which uses plot_bounded_2d_kde). 
     
     Parameters
     ----------
@@ -197,12 +282,16 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,\
     
     """
 
+
+
     # load the event colors consistent with the GWTC-3 catalog paper
     with open(color_file,'rb') as f:
         color_dict = pickle.load(f)
 
     # setting up the figure
     fig,ax = plt.subplots(figsize=(6.75,3.75))
+
+
     
     # setting up for the plots - different settings for each parameter pair
     if var1=='log_chirp_mass_source' and var2=='chi_eff_infinity_only_prec_avg':
@@ -289,7 +378,8 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,\
 
 
     elif var1=='mass_1_source' and var2=='mass_2_source':
-    
+
+
         # axis ranges, scales and labels
         ax.set_xlim(2,200)
         ax.set_ylim(1,100)
@@ -329,22 +419,22 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,\
         
         # make the shaded region for m2>m1                              
         m = np.logspace(0,np.log10(200),500)
-        ax.fill_between(m,m,200,color='lightgrey',zorder=100)
-        ax.plot(m,m,color='k',zorder=101)
+        ax.fill_between(m,m,200,color='lightgrey',zorder=10000)
+        ax.plot(m,m,color='k',zorder=10001)
         ax.text(11,14,r'mass ratio = 1',rotation=25,color='k',\
-                    fontsize=10,zorder=102)
+                    fontsize=10,zorder=10002)
 
         
         # shaded region for q=/50
         m2=m/50
-        ax.fill_between(m,m2,1,color='lightgrey',zorder=100)
-        ax.plot(m,m2,color='k',zorder=101)
+        ax.fill_between(m,m2,1,color='lightgrey',zorder=10000)
+        ax.plot(m,m2,color='k',zorder=10001)
         ax.text(75,1.15,r'mass ratio = 1/50',rotation=25,color='k',\
-                    fontsize=10,zorder=102)
+                    fontsize=10,zorder=10002)
 
 
 
-    # cound the number of highlighted events - this is so we can split the
+    # count the number of highlighted events - this is so we can split the
     # list in two at halfway
     highlightCount = 0
     
