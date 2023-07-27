@@ -237,7 +237,7 @@ Here are some useful definitions and links to find out more.
 * **Solar mass**: the mass of the Sun. [Solar mass](https://astronomy.swin.edu.au/cosmos/s/solar+mass) is a common unit for representing masses in astronomy. 
 * **Primary mass**: the mass of the more massive object in the binary (in solar masses). 
 * **Secondary mass** the mass of the less massive object in the binary (in solar masses). 
-* **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. The mathematical definition can be found [here](https://emfollow.docs.ligo.org/userguide/glossary.html#term-chirp-mass)
+* **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. The mathematical definition can be found [here](https://emfollow.docs.ligo.org/userguide/glossary.html#term-chirp-mass).
 * **Mass ratio**: defined as the secondary mass divided by the primary mass. 
 * **Total mass**: the sum of the primary and the secondary masses.
 * **Effective inspiral spin**: the best-measured parameter encoding spin information in a gravitational-wave signal. It describes how much of each individual black hole's spin is rotating in the same way as the orbital rotation (e.g. if the spin and the orbit are both clockwise or anticlockwise). 
@@ -258,7 +258,7 @@ Useful links:
 * Visit the [GWTC-3 data release](https://www.gw-openscience.org/GWTC-3/) at the Gravitational Wave Open Science Centre. 
 * Read the [GWTC-3 science summary](https://www.ligo.org/science/Publication-O3bCatalog/index.php).
 * Read [behind the scenes stories](https://www.ligo.org/magazine/LIGO-magazine-issue20.pdf#page=6) from some members of the GWTC-3 team in the [LIGO Magazine](https://www.ligo.org/magazine).
-* View the code for this app [here](https://github.com/hannahm8/gw-contour-plotter). 
+* View the code for this app at [github.com/hannahm8/gw-contour-plotter](https://github.com/hannahm8/gw-contour-plotter). 
 
 **Acknowledgements:**
 This app makes use of data from the [LIGO](https://www.ligo.org/), [Virgo](https://www.virgo-gw.eu/), and [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) Collaborations.
