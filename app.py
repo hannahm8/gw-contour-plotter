@@ -95,7 +95,7 @@ highlightDefaults = ['GW191204_171526', \
                      'GW200115_042309', \
                      'GW200210_092254', \
                      'GW200220_061928', \
-                     'GW200225_06042']
+                     'GW200225_060421']
 
 
 # get namaees
@@ -110,7 +110,7 @@ eventsFullNames = [ names['FULLNAME'][e] for e in events]
 
 
 st.set_page_config(page_title='GW Contour Plotter', page_icon=":crocodile:")
-
+print(eventsFullNames)
 # sidebar stuff
 highlightsSelected = st.sidebar.multiselect('Event to highlight',
                                             eventsFullNames,
@@ -156,6 +156,8 @@ color_file = './O3bScripts/colors.pkl'
 contour_dir = './contour_data'
 
 
+
+
 downloadData(contour_dir)
 
 
@@ -165,60 +167,103 @@ downloadData(contour_dir)
 
 
 # chosing the plot
-plotChooseMcChiEff = 'Effective inspiral spin (y-axis) against source chirp mass (x-axis)'
-plotChooseMTq      = 'Mass ratio (y-axis) against total source mass (x-axis)'
+plotChooseMcChiEff = 'Source chirp mass (x-axis) and effective inspiral spin (y-axis).'
+plotChooseMTq      = 'Source total mass (x-axis) and mass ratio (y-axis).'
+plotChooseM1M2     = 'Primary mass (x-axis) and secondary mass (y-axis).'
 
 plotNames = [
-    plotChooseMcChiEff,
-    plotChooseMTq
+    plotChooseM1M2,
+    plotChooseMTq,
+    plotChooseMcChiEff
 ]
 
 def headerlabel(number):
     return "{0}".format(plotNames[number-1])
 
-whichPlot = st.radio('What would you like to plot?', [1,2], format_func=headerlabel)
+whichPlot = st.radio('What would you like to plot?', [1,2,3], format_func=headerlabel)
 
 
 
-if whichPlot==1:#plotChooseMcChiEff: 
-    var1, var2 = 'log_chirp_mass_source', 'chi_eff_infinity_only_prec_avg'
+if whichPlot==1: #plotChooseM1M2
+    var1, var2 = 'mass_1_source', 'mass_2_source'
 
-elif whichPlot==2:#plotChooseMTq:
+elif whichPlot==2: #plotChooseMTq:
 
     var1, var2 = 'log_total_mass_source', 'log_mass_ratio'
 
-# can we print the data now? 
+elif whichPlot==3: #plotChooseMcChiEff: 
+    var1, var2 = 'log_chirp_mass_source', 'chi_eff_infinity_only_prec_avg'
 
+with lock:
+    fig = make_contour_plot.make_plot(eventsSelected,
+                                      contour_dir,  
+                                      var1, var2,
+                                      highlightsSelected,
+                                      color_file,
+                                      names)
+    st.pyplot(fig)
 
-fig = make_contour_plot.make_plot(eventsSelected,
-                                  contour_dir,  
-                                  var1, var2,
-                                  highlightsSelected,
-                                  color_file,
-                                  names)
-st.pyplot(fig)
+if whichPlot ==1: 
+    st.markdown('''
+    **About this plot:**
+Credible-region contours in the plane of primary mass and secondary mass (see definitions below). 
+Each contour represents the 90% credible region for an O3b gravitational-wave candidate. 
+We define the parameters so that the primary mass is greater than the secondary mass so that there are no contours inside the upper shaded region (mass ratios great than 1). The lower shaded region indicates a mass ratio less than 1/50, which was the lower prior bound on mass ratio used in the analysis. 
+''')
 
+elif whichPlot ==2: 
+    st.markdown('''
+**About this plot:**
+Credible-region contours in the plane of total mass and mass ratio (see definitions below). 
+Each contour represents the 90% credible region for an O3b gravitational-wave candidate. 
+The dotted lines shows the region where both the primary and secondary masses can have a mass below 3 solar masses. We use 3 solar masses as a robust upper limit on the maximum mass of a neutron star. 
+''')
 
-
-st.markdown('''
-**About this app**
-
-This app produces contour plots of parameter estimation results from the third Gravitational Wave Transient Catalog (GWTC-3). 
-
-The plots are similar to Figures 8 and 9 in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606). The app uses data release material from (doi.org/10.5281/zenodo.5546662)[doi.org/10.5281/zenodo.5546662] (contour_data.tar.gz). 
-
-View the code for this app [here](https://github.com/hannahm8/gw-contour-plotter). 
-Thank you to Jonah Kanner for inspiration and guidance in creating this app. Visit Jonah Kanner's [GW Quickview app](https://share.streamlit.io/jkanner/streamlit-dataview/app.py). 
+elif whichPlot ==3: 
+    st.markdown('''
+**About this plot:**
+Credible-region contours in the plane of chirp mass and effective inspiral spin (see definitions below). 
+Each contour represents the 90% credible region for an O3b gravitational-wave candidate. 
+The dotted line marks a zero effective inspiral spin. 
 ''')
 
 
-#st.markdown('writing virtual file')
-#virtualFile = io.BytesIO()
-#virtualFile.write(r.content)
 
-#my_tar = tarfile.open(virtualFile)
-#my_tar.extractall('.')
-#my_tar.close()
+
+st.subheader('Parameter definitions')
+st.markdown('''
+Here are some useful definitions and links to find out more. 
+
+* **Solar mass**: the mass of the Sun (${\\rm M_{\odot}}$). Solar mass is a common unit for representing masses in astronomy. It is about $2\\times 10^{30}\\,{\\rm kg}$.
+* **Primary mass**: the mass of the more massive object in the binary (in solar masses). 
+* **Secondary mass** the mass of the less massive object in the binary (in solar masses). 
+* **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. The mathematical definition can be found [here](https://emfollow.docs.ligo.org/userguide/glossary.html#term-chirp-mass)
+* **Mass ratio**: defined as the secondary mass divided by the primary mass. 
+* **Total mass**: the sum of the primary and the secondary masses.
+* **Effective inspiral spin**: the best-measured parameter encoding spin information in a gravitational-wave signal. It describes how much of each individual black hole's spin is rotating in the same way as the orbital rotation (e.g. if the spin and the orbit are both clockwise or anticlockwise). 
+
+Note that we define the masses in the source reference frame.  
+''')
+
+
+st.subheader('Find out more')
+st.markdown('''
+This app uses data release products associated with GWTC-3, the third Gravitational-Wave Transient Catalog from the [LIGO Scientific Collaboration](https://www.ligo.org/), the [Virgo Collaboration](https://www.virgo-gw.eu/), and the [KAGRA Collaboration](https://gwcenter.icrr.u-tokyo.ac.jp/en/).
+The contour plots produced by this app are similar to figures 8 and 9 in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606). 
+The contour data (`contour_data.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release](https://doi.org/10.5281/zenodo.5546662) on Zenodo - this page also includes a python notebook (`O3bPEContourPlots.ipynb`) with more information about these results and enabling further customisation of the plots. 
+
+Useful links: 
+* Read the [GWTC-3 paper](https://arxiv.org/abs/2111.03606).
+* Visit the [GWTC-3 data release](https://www.gw-openscience.org/GWTC-3/) at the Gravitational Wave Open Science Centre. 
+* Read the [GWTC-3 science summary](https://www.ligo.org/science/Publication-O3bCatalog/index.php).
+* Read [behind the scenes stories](https://www.ligo.org/magazine/LIGO-magazine-issue20.pdf#page=6) from some members of the GWTC-3 team in the [LIGO Magazine](https://www.ligo.org/magazine).
+* View the code for this app [here](https://github.com/hannahm8/gw-contour-plotter). 
+
+**Acknowledgements:**
+This app makes use of data from the [LIGO](https://www.ligo.org/), [Virgo](https://www.virgo-gw.eu/), and [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) Collaborations.
+Thanks to the [Gravitational Wave Open Science Center](https://www.gw-openscience.org) for inspiration and guidance in creating this app. 
+Check out some other gravitational-wave apps: [GW Quickview](https://gw-quickview.streamlit.app/) and [PE Viewer](http://peviewer.igwn.org/). 
+''')
 
 
 
