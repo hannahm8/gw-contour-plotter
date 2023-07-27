@@ -133,7 +133,7 @@ st.markdown('''
 GWTC-3 is the "third gravitational wave transient catalog" from the [LIGO](https://www.ligo.org/), [Virgo](https://www.virgo-gw.eu/), and [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) (LVK) Collaborations.
 [GWTC-3](https://www.ligo.org/science/Publication-O3bCatalog/) updates the previous catalogs ([GWTC-1](https://www.ligo.org/science/Publication-O2Catalog/), [GWTC-2](https://www.ligo.org/science/Publication-O3aCatalog/), [GWTC-2.1](https://www.ligo.org/science/Publication-O3aFinalCatalog/)) with merger events observed during the second part of Observing Run 3 (O3b), which lasted from the 1st November 2019 to the 27th March 2020. 
 
-As in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606), the gravitational-wave events included in these plots are those that have a greater than 50% probability of being real astrophysical signals. 
+As in the [GWTC-3 paper](https://dcc.ligo.org/LIGO-P2000318/public), the gravitational-wave events included in these plots are those that have a greater than 50% probability of being real astrophysical signals. 
 Identical to the paper, we include one additional event (GW200105_162426) which, despite having a lower probability of being real, is still a clear outlier from the noise background (see the paper for more information).
 The plots reproduce figures 8 and 9 from the paper. 
 ''')
@@ -249,11 +249,12 @@ Note that we define the masses in the source reference frame.
 st.subheader('Find out more')
 st.markdown('''
 This app uses data release products associated with GWTC-3, the third Gravitational-Wave Transient Catalog from the [LIGO Scientific Collaboration](https://www.ligo.org/), the [Virgo Collaboration](https://www.virgo-gw.eu/), and the [KAGRA Collaboration](https://gwcenter.icrr.u-tokyo.ac.jp/en/).
-The contour plots produced by this app are similar to figures 8 and 9 in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606). 
-The contour data (`contour_data.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release](https://doi.org/10.5281/zenodo.5546662) on Zenodo - this page also includes a python notebook (`O3bPEContourPlots.ipynb`) with more information about these results and enabling further customisation of the plots. 
+The contour plots produced by this app are similar to figures 8 and 9 in the [GWTC-3 paper](https://dcc.ligo.org/LIGO-P2000318/public). 
+The contour data (`contour_data.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release](https://doi.org/10.5281/zenodo.5546662) on Zenodo.
+The Zenodo page also includes two python notebooks, on of which reproduces the plots shown here and allows greater customization (GWTC3p0PEPlotContourData.ipynb) and the other contains a guide to using parameter estimation results more generally (`GWTC3p0PEDataReleaseExample.ipynb`). 
 
 Useful links: 
-* Read the [GWTC-3 paper](https://arxiv.org/abs/2111.03606).
+* Read the [GWTC-3 catalog paper](https://dcc.ligo.org/LIGO-P2000318/public).
 * Visit the [GWTC-3 data release](https://www.gw-openscience.org/GWTC-3/) at the Gravitational Wave Open Science Centre. 
 * Read the [GWTC-3 science summary](https://www.ligo.org/science/Publication-O3bCatalog/index.php).
 * Read [behind the scenes stories](https://www.ligo.org/magazine/LIGO-magazine-issue20.pdf#page=6) from some members of the GWTC-3 team in the [LIGO Magazine](https://www.ligo.org/magazine).
