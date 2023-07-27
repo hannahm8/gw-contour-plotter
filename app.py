@@ -109,7 +109,7 @@ eventsFullNames = [ names['FULLNAME'][e] for e in events]
 
 
 
-st.set_page_config(page_title='GW Contour Plotter', page_icon=":crocodile:")
+st.set_page_config(page_title='GWTC-3 Contour Plots', page_icon=":crocodile:")
 
 # sidebar stuff
 highlightsSelected = st.sidebar.multiselect('Event to highlight',
