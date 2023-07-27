@@ -234,7 +234,7 @@ st.subheader('Parameter definitions')
 st.markdown('''
 Here are some useful definitions and links to find out more. 
 
-* **Solar mass**: the mass of the Sun. Solar mass is a common unit for representing masses in astronomy. It is about 2 x 10<sup>30</sup> kg.
+* **Solar mass**: the mass of the Sun. [Solar mass](https://astronomy.swin.edu.au/cosmos/s/solar+mass) is a common unit for representing masses in astronomy. 
 * **Primary mass**: the mass of the more massive object in the binary (in solar masses). 
 * **Secondary mass** the mass of the less massive object in the binary (in solar masses). 
 * **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. The mathematical definition can be found [here](https://emfollow.docs.ligo.org/userguide/glossary.html#term-chirp-mass)
