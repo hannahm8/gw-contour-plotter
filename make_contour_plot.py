@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 import matplotlib
 
-matplotlib.rcParams['text.usetex'] = True
+#matplotlib.rcParams['text.usetex'] = True
 matplotlib.rcParams['font.size'] = 9
 matplotlib.rcParams['savefig.dpi'] = 300
-matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+#matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 matplotlib.rcParams['legend.fontsize'] = 9
 
 import sys
@@ -357,10 +357,10 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
         # mass ratio lines and labels
         log10Mt, log10q = massRatioLines_m2Equals3()
         ax.plot(log10Mt,log10q,color='k',alpha=0.3,ls='--')
-        ax.text(np.log10(3.4),np.log10(.35),r'$m_2=3M_{\odot}$',rotation=64,alpha=0.8)
+        ax.text(np.log10(3.4),np.log10(.35),'$m_2=3M_{\odot}$'),rotation=64,alpha=0.8)
         log10Mt, log10q = massRatioLines_m1Equals3()
         ax.plot(log10Mt,log10q,color='k',alpha=0.3,ls=':')
-        ax.text(np.log10(100.),np.log10(.02),r'$m_1=3M_{\odot}$',rotation=324,alpha=0.8)
+        ax.text(np.log10(100.),np.log10(.02),'$m_1=3M_{\odot}$',rotation=324,alpha=0.8)
                               
         # relabelling the y axis to mass ratio (instead of log10)
         yValues = (.02,.03,.05,.08,.12,.20,.30,.45,.65,1.)
@@ -421,7 +421,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
         m = np.logspace(0,np.log10(200),500)
         ax.fill_between(m,m,200,color='lightgrey',zorder=10000)
         ax.plot(m,m,color='k',zorder=10001)
-        ax.text(11,14,r'mass ratio = 1',rotation=25,color='k',\
+        ax.text(11,14,'mass ratio = 1',rotation=25,color='k',\
                     fontsize=10,zorder=10002)
 
         
@@ -429,7 +429,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
         m2=m/50
         ax.fill_between(m,m2,1,color='lightgrey',zorder=10000)
         ax.plot(m,m2,color='k',zorder=10001)
-        ax.text(75,1.15,r'mass ratio = 1/50',rotation=25,color='k',\
+        ax.text(75,1.15,'mass ratio = 1/50',rotation=25,color='k',\
                     fontsize=10,zorder=10002)
 
 
