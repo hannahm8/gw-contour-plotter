@@ -216,7 +216,7 @@ elif whichPlot ==2:
 **About this plot:**
 Credible-region contours in the plane of total mass and mass ratio (see definitions below). 
 Each contour represents the 90% credible region for an O3b gravitational-wave candidate. 
-The dotted lines shows the region where both the primary and secondary masses can have a mass below 3 solar masses. We use 3 solar masses as a robust upper limit on the maximum mass of a neutron star. 
+The dotted lines shows the region where both the primary (m1) and secondary (m2) masses can have a mass below 3 solar masses. We use 3 solar masses as a robust upper limit on the maximum mass of a neutron star. 
 ''')
 
 elif whichPlot ==3: 
