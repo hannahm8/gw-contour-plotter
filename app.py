@@ -250,8 +250,8 @@ st.subheader('Find out more')
 st.markdown('''
 This app uses data release products associated with GWTC-3, the third Gravitational-Wave Transient Catalog from the [LIGO Scientific Collaboration](https://www.ligo.org/), the [Virgo Collaboration](https://www.virgo-gw.eu/), and the [KAGRA Collaboration](https://gwcenter.icrr.u-tokyo.ac.jp/en/).
 The contour plots produced by this app are similar to figures 8 and 9 in the [GWTC-3 paper](https://dcc.ligo.org/LIGO-P2000318/public). 
-The contour data (`contour_data.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release](https://doi.org/10.5281/zenodo.5546662) on Zenodo.
-The Zenodo page also includes two python notebooks, on of which reproduces the plots shown here and allows greater customization (GWTC3p0PEPlotContourData.ipynb) and the other contains a guide to using parameter estimation results more generally (`GWTC3p0PEDataReleaseExample.ipynb`). 
+The contour data (`IGWN-GWTC3p0-v2-PEContours.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release](https://doi.org/10.5281/zenodo.5546662) on Zenodo.
+The Zenodo page also includes two python notebooks, one of which reproduces the plots shown here and allows greater customization (GWTC3p0PEPlotContourData.ipynb) and the other contains a guide to using parameter estimation results more generally (`GWTC3p0PEDataReleaseExample.ipynb`). 
 
 Useful links: 
 * Read the [GWTC-3 catalog paper](https://dcc.ligo.org/LIGO-P2000318/public).
