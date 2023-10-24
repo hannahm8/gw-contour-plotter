@@ -114,7 +114,7 @@ eventsFullNames = [ names['FULLNAME'][e] for e in events]
 st.set_page_config(page_title='GWTC-3 Contour Plots', page_icon=":crocodile:")
 
 # sidebar stuff
-highlightsSelected = st.sidebar.multiselect('Event to highlight (highlighted events should also be selected in "events to be plotted" below)',
+highlightsSelected = st.sidebar.multiselect('Event to highlighted (highlighted events should also be selected in "events to be plotted" below)',
                                             eventsFullNames,
                                             default=highlightDefaults)
                                             
@@ -139,6 +139,8 @@ As in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606), the gravitational-wa
 
 Identical to the paper, we include one additional event (GW200105_162426) which, despite having a lower probability of being real, is still a clear outlier from the noise background (see the paper for more information).
 The plots reproduce figures 8 and 9 from the paper. 
+
+To keep up with the latest gravitational wave events, head over to [Chirp](https://chirp.research.exeter.ac.uk/).
 ''')
 
 
