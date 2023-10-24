@@ -49,7 +49,7 @@ def downloadData(directory):
         my_tar.close()
     return None
 
-#GW191129G'
+
 events = ['GW191103A',
           'GW191105C',
           'GW191109A',
@@ -91,6 +91,7 @@ events = ['GW191103A',
 #posHighlight = ['GW191230A', 'GW191109A', 'GW191129A', \
 #                 'GW200115A', '200105A', 'GW200311A']
 
+
 highlightDefaults = ['GW191204_171526', \
                      'GW191219_163120', \
                      'GW200105_162426', \
@@ -115,7 +116,7 @@ eventsFullNames = [ names['FULLNAME'][e] for e in events]
 st.set_page_config(page_title='GWTC-3 Contour Plots', page_icon=":crocodile:")
 
 # sidebar stuff
-highlightsSelected = st.sidebar.multiselect('Event to highlight',
+highlightsSelected = st.sidebar.multiselect('Event to highlight (highlighted events should also be selected in "events to be plotted" below)',
                                             eventsFullNames,
                                             default=highlightDefaults)
                                             
@@ -137,6 +138,7 @@ GWTC-3 is the "third gravitational wave transient catalog" from the [LIGO](https
 [GWTC-3](https://www.ligo.org/science/Publication-O3bCatalog/) updates the previous catalogs ([GWTC-1](https://www.ligo.org/science/Publication-O2Catalog/), [GWTC-2](https://www.ligo.org/science/Publication-O3aCatalog/), [GWTC-2.1](https://www.ligo.org/science/Publication-O3aFinalCatalog/)) with merger events observed during the second part of Observing Run 3 (O3b), which lasted from the 1st November 2019 to the 27th March 2020. 
 
 As in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606), the gravitational-wave events included in these plots are those that have a greater than 50% probability of being real astrophysical signals. 
+
 Identical to the paper, we include one additional event (GW200105_162426) which, despite having a lower probability of being real, is still a clear outlier from the noise background (see the paper for more information).
 The plots reproduce figures 8 and 9 from the paper. 
 ''')
@@ -159,8 +161,6 @@ color_file = './O3bScripts/colors.pkl'
 contour_dir = './IGWN-GWTC3p0-v2-PEContours' #'./contour_data'
 
 
-#################################################
-# Tempory! for now we are not doing this: 
 downloadData(contour_dir)
 # as the contours have not been updated on zenodo
 # instead, we are using local contours:
@@ -237,7 +237,7 @@ st.subheader('Parameter definitions')
 st.markdown('''
 Here are some useful definitions and links to find out more. 
 
-* **Solar mass**: the mass of the Sun (${\\rm M_{\odot}}$). Solar mass is a common unit for representing masses in astronomy. It is about $2\\times 10^{30}\\,{\\rm kg}$.
+* **Solar mass**: the mass of the Sun (${\\rm M_{\odot}}$). [Solar mass](https://astronomy.swin.edu.au/cosmos/s/solar+mass) is a common unit for representing masses in astronomy. It is about $2\\times 10^{30}\\,{\\rm kg}$.
 * **Primary mass**: the mass of the more massive object in the binary (in solar masses). 
 * **Secondary mass** the mass of the less massive object in the binary (in solar masses). 
 * **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. The mathematical definition can be found [here](https://emfollow.docs.ligo.org/userguide/glossary.html#term-chirp-mass)
@@ -252,15 +252,17 @@ Note that we define the masses in the source reference frame.
 st.subheader('Find out more')
 st.markdown('''
 This app uses data release products associated with GWTC-3, the third Gravitational-Wave Transient Catalog from the [LIGO Scientific Collaboration](https://www.ligo.org/), the [Virgo Collaboration](https://www.virgo-gw.eu/), and the [KAGRA Collaboration](https://gwcenter.icrr.u-tokyo.ac.jp/en/).
-The contour plots produced by this app are similar to figures 8 and 9 in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606). 
-The contour data (`contour_data.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release](https://doi.org/10.5281/zenodo.5546662) on Zenodo - this page also includes a python notebook (`O3bPEContourPlots.ipynb`) with more information about these results and enabling further customisation of the plots. 
+
+The contour plots produced by this app are similar to figures 8 and 9 in the [GWTC-3 paper](https://dcc.ligo.org/LIGO-P2000318/public). 
+The contour data (`IGWN-GWTC3p0-v2-PEContours.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release](https://doi.org/10.5281/zenodo.5546662) on Zenodo.
+The Zenodo page also includes two python notebooks, one of which reproduces the plots shown here and allows greater customization (GWTC3p0PEPlotContourData.ipynb) and the other contains a guide to using parameter estimation results more generally (`GWTC3p0PEDataReleaseExample.ipynb`). 
 
 Useful links: 
-* Read the [GWTC-3 paper](https://arxiv.org/abs/2111.03606).
+* Read the [GWTC-3 catalog paper](https://dcc.ligo.org/LIGO-P2000318/public).
 * Visit the [GWTC-3 data release](https://www.gw-openscience.org/GWTC-3/) at the Gravitational Wave Open Science Centre. 
 * Read the [GWTC-3 science summary](https://www.ligo.org/science/Publication-O3bCatalog/index.php).
 * Read [behind the scenes stories](https://www.ligo.org/magazine/LIGO-magazine-issue20.pdf#page=6) from some members of the GWTC-3 team in the [LIGO Magazine](https://www.ligo.org/magazine).
-* View the code for this app [github.com/hannahm8/gw-contour-plotter](https://github.com/hannahm8/gw-contour-plotter). 
+* View the code for this app at [github.com/hannahm8/gw-contour-plotter](https://github.com/hannahm8/gw-contour-plotter). 
 
 **Acknowledgements:**
 This app makes use of data from the [LIGO](https://www.ligo.org/), [Virgo](https://www.virgo-gw.eu/), and [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) Collaborations.

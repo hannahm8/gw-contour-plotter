@@ -353,14 +353,15 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
                               facecolor='white',
                               edgecolor='none',
                               alpha=1.0))
+
                               
         # mass ratio lines and labels
         log10Mt, log10q = massRatioLines_m2Equals3()
         ax.plot(log10Mt,log10q,color='k',alpha=0.3,ls='--')
-        ax.text(np.log10(3.4),np.log10(.35),r'$m_2=3M_{\odot}$',rotation=64,alpha=0.8)
+        ax.text(np.log10(2.6),np.log10(.03),'m2 = 3 solar masses',rotation=84,alpha=0.8)
         log10Mt, log10q = massRatioLines_m1Equals3()
         ax.plot(log10Mt,log10q,color='k',alpha=0.3,ls=':')
-        ax.text(np.log10(100.),np.log10(.02),r'$m_1=3M_{\odot}$',rotation=324,alpha=0.8)
+        ax.text(np.log10(60.),np.log10(.019),'m1 = 3 solar masses',rotation=324,alpha=0.8)
                               
         # relabelling the y axis to mass ratio (instead of log10)
         yValues = (.02,.03,.05,.08,.12,.20,.30,.45,.65,1.)
@@ -431,7 +432,6 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
         ax.plot(m,m2,color='k',zorder=10001)
         ax.text(75,1.15,r'mass ratio = 1/50',rotation=25,color='k',\
                     fontsize=10,zorder=10002)
-
 
 
     # count the number of highlighted events - this is so we can split the
