@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 import matplotlib
 
-#matplotlib.rcParams['text.usetex'] = True
+matplotlib.rcParams['text.usetex'] = True
 matplotlib.rcParams['font.size'] = 9
 matplotlib.rcParams['savefig.dpi'] = 300
-#matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 matplotlib.rcParams['legend.fontsize'] = 9
 
 import sys
@@ -314,7 +314,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
                     bbox=dict(boxstyle='round',
                               facecolor='white',
                               edgecolor='none',
-                              alpha=.7))
+                              alpha=1.0))
 
         # reduce the number of ticks on the y axis
         yPositions = (-1.0, -0.5, 0.0, 0.5, 1.0)
@@ -352,7 +352,8 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
                     bbox=dict(boxstyle='round',
                               facecolor='white',
                               edgecolor='none',
-                              alpha=.7))
+                              alpha=1.0))
+
                               
         # mass ratio lines and labels
         log10Mt, log10q = massRatioLines_m2Equals3()
@@ -407,7 +408,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
                      bbox=dict(boxstyle='round',
                                facecolor='white',
                                edgecolor='none',
-                               alpha=.7))
+                               alpha=1.0))
 
 
         xValues = (2, 4, 7, 10, 20, 40, 70, 100, 200)
@@ -421,17 +422,16 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
         m = np.logspace(0,np.log10(200),500)
         ax.fill_between(m,m,200,color='lightgrey',zorder=10000)
         ax.plot(m,m,color='k',zorder=10001)
-        ax.text(11,14,'mass ratio = 1',rotation=25,color='k',\
-                    fontsize=9,zorder=10002)
+        ax.text(11,14,r'mass ratio = 1',rotation=25,color='k',\
+                    fontsize=10,zorder=10002)
 
         
         # shaded region for q=/50
         m2=m/50
         ax.fill_between(m,m2,1,color='lightgrey',zorder=10000)
         ax.plot(m,m2,color='k',zorder=10001)
-        ax.text(75,1.15,'mass ratio = 1/50',rotation=25,color='k',\
-                    fontsize=9,zorder=10002)
-
+        ax.text(75,1.15,r'mass ratio = 1/50',rotation=25,color='k',\
+                    fontsize=10,zorder=10002)
 
 
     # count the number of highlighted events - this is so we can split the

@@ -2,6 +2,7 @@
 
 #response_API = requests.get('https://zenodo.org/api/records/5117762/files/search_data_GWTC2p1.tar.xml.gz')
 #response_API = requests.get('https://zenodo.org/api/files/35914311-503b-452d-a67a-7a3587b91810/search_data_GWTC2p1.tar.xml.gz')
+#v1 = "https://zenodo.org/api/files/d7a70f99-e16a-48a2-ae27-0b1968b0840c/contour_data.tar.gz"
 
 import streamlit as st
 import requests, io
@@ -33,8 +34,10 @@ import make_contour_plot
 def downloadData(directory):
     if exists(directory)==True:
         st.markdown('Checked data is available, getting ready to plot...')
+        st.markdown('okay') 
     else: 
-        address = "https://zenodo.org/api/files/d7a70f99-e16a-48a2-ae27-0b1968b0840c/contour_data.tar.gz"
+        st.markdown('data not there')
+        address = "https://zenodo.org/api/files/38ea0af1-5d54-4b5d-8b7c-76ca214dd0fc/IGWN-GWTC3p0-v2-PEContours.tar.gz"
         st.markdown("Downloading contours, hold on - this can take several minutes...")
         r = requests.get(address)
         file_name = 'contour_data.tar.gz'
@@ -98,6 +101,7 @@ highlightDefaults = ['GW191204_171526', \
                      'GW200225_060421']
 
 
+
 # get namaees
 with open('O3bScripts/names.json', 'r') as nameFile:
     data = nameFile.read()
@@ -110,7 +114,7 @@ eventsFullNames = [ names['FULLNAME'][e] for e in events]
 
 
 st.set_page_config(page_title='GWTC-3 Contour Plots', page_icon=":crocodile:")
-print(eventsFullNames)
+
 # sidebar stuff
 highlightsSelected = st.sidebar.multiselect('Event to highlight (highlighted events should also be selected in "events to be plotted" below)',
                                             eventsFullNames,
@@ -133,7 +137,8 @@ st.markdown('''
 GWTC-3 is the "third gravitational wave transient catalog" from the [LIGO](https://www.ligo.org/), [Virgo](https://www.virgo-gw.eu/), and [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) (LVK) Collaborations.
 [GWTC-3](https://www.ligo.org/science/Publication-O3bCatalog/) updates the previous catalogs ([GWTC-1](https://www.ligo.org/science/Publication-O2Catalog/), [GWTC-2](https://www.ligo.org/science/Publication-O3aCatalog/), [GWTC-2.1](https://www.ligo.org/science/Publication-O3aFinalCatalog/)) with merger events observed during the second part of Observing Run 3 (O3b), which lasted from the 1st November 2019 to the 27th March 2020. 
 
-As in the [GWTC-3 paper](https://dcc.ligo.org/LIGO-P2000318/public), the gravitational-wave events included in these plots are those that have a greater than 50% probability of being real astrophysical signals. 
+As in the [GWTC-3 paper](https://arxiv.org/abs/2111.03606), the gravitational-wave events included in these plots are those that have a greater than 50% probability of being real astrophysical signals. 
+
 Identical to the paper, we include one additional event (GW200105_162426) which, despite having a lower probability of being real, is still a clear outlier from the noise background (see the paper for more information).
 The plots reproduce figures 8 and 9 from the paper. 
 ''')
@@ -153,15 +158,13 @@ Select which parameter combination you would like to see below.
 
 
 color_file = './O3bScripts/colors.pkl'
-contour_dir = './contour_data'
-
-
+contour_dir = './IGWN-GWTC3p0-v2-PEContours' #'./contour_data'
 
 
 downloadData(contour_dir)
-
-
-#contour_dir = './contour_data'
+# as the contours have not been updated on zenodo
+# instead, we are using local contours:
+#contour_dir = './contour_data/'
 
 
 
@@ -216,7 +219,7 @@ elif whichPlot ==2:
 **About this plot:**
 Credible-region contours in the plane of total mass and mass ratio (see definitions below). 
 Each contour represents the 90% credible region for an O3b gravitational-wave candidate. 
-The dotted lines shows the region where both the primary (m1) and secondary (m2) masses can have a mass below 3 solar masses. We use 3 solar masses as a robust upper limit on the maximum mass of a neutron star. 
+The dotted lines shows the region where both the primary and secondary masses can have a mass below 3 solar masses. We use 3 solar masses as a robust upper limit on the maximum mass of a neutron star. 
 ''')
 
 elif whichPlot ==3: 
@@ -234,10 +237,10 @@ st.subheader('Parameter definitions')
 st.markdown('''
 Here are some useful definitions and links to find out more. 
 
-* **Solar mass**: the mass of the Sun. [Solar mass](https://astronomy.swin.edu.au/cosmos/s/solar+mass) is a common unit for representing masses in astronomy. 
+* **Solar mass**: the mass of the Sun (${\\rm M_{\odot}}$). [Solar mass](https://astronomy.swin.edu.au/cosmos/s/solar+mass) is a common unit for representing masses in astronomy. It is about $2\\times 10^{30}\\,{\\rm kg}$.
 * **Primary mass**: the mass of the more massive object in the binary (in solar masses). 
 * **Secondary mass** the mass of the less massive object in the binary (in solar masses). 
-* **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. The mathematical definition can be found [here](https://emfollow.docs.ligo.org/userguide/glossary.html#term-chirp-mass).
+* **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. The mathematical definition can be found [here](https://emfollow.docs.ligo.org/userguide/glossary.html#term-chirp-mass)
 * **Mass ratio**: defined as the secondary mass divided by the primary mass. 
 * **Total mass**: the sum of the primary and the secondary masses.
 * **Effective inspiral spin**: the best-measured parameter encoding spin information in a gravitational-wave signal. It describes how much of each individual black hole's spin is rotating in the same way as the orbital rotation (e.g. if the spin and the orbit are both clockwise or anticlockwise). 
@@ -249,6 +252,7 @@ Note that we define the masses in the source reference frame.
 st.subheader('Find out more')
 st.markdown('''
 This app uses data release products associated with GWTC-3, the third Gravitational-Wave Transient Catalog from the [LIGO Scientific Collaboration](https://www.ligo.org/), the [Virgo Collaboration](https://www.virgo-gw.eu/), and the [KAGRA Collaboration](https://gwcenter.icrr.u-tokyo.ac.jp/en/).
+
 The contour plots produced by this app are similar to figures 8 and 9 in the [GWTC-3 paper](https://dcc.ligo.org/LIGO-P2000318/public). 
 The contour data (`IGWN-GWTC3p0-v2-PEContours.tar.gz`) can be found in the [GWTC-3 Parameter Estimation Data Release](https://doi.org/10.5281/zenodo.5546662) on Zenodo.
 The Zenodo page also includes two python notebooks, one of which reproduces the plots shown here and allows greater customization (GWTC3p0PEPlotContourData.ipynb) and the other contains a guide to using parameter estimation results more generally (`GWTC3p0PEDataReleaseExample.ipynb`). 

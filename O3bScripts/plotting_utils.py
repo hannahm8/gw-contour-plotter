@@ -29,153 +29,128 @@ import os
 #       MA 02110-1301, USA.
 
 # ----------------- HARD CODED QUANTITIES FOR PLOTS ---------------------------
-"""
+
 column_name2tex_name = {
-        'total_mass_source':r'M/M_\odot',
-        'chirp_mass_source':r'\mathcal{{M}}/M_\odot',
-        'mass_1_source':r'm_1/M_\odot',
-        'mass_2_source':r'm_2/M_\odot',
+        'total_mass_source':r'M\:[M_\odot]',
+        'log_total_mass_source':r'M\:[M_\odot]',
+        'chirp_mass_source':r'\mathcal{{M}}\:[M_\odot]',
+        'log_chirp_mass_source':r'\mathcal{{M}}\:[M_\odot]',
+        'chirp_mass':r'\mathcal{{M}}^{\rm det}\:[M_\odot]',
+        'mass_1_source':r'm_1\:[M_\odot]',
+        'mass_2_source':r'm_2\:[M_\odot]',
         'chi_eff':r'\chi_{{\rm eff}}',
-        'chi_p':r'\chi_p',
-        'luminosity_distance':r'D_{\rm L}/{\rm Gpc}',
+        'chi_p':r'\chi_{{\rm p}}',
+        'chi_eff_infinity_only_prec_avg':r'\chi_{{\rm eff}}',
+        'chi_p_infinity_only_prec_avg':r'\chi_{{\rm p}}',
+        'a_1':r'\mathrm{a}_1',
+        'luminosity_distance':r'D_{\rm L}\:[{\rm Gpc}]',
         'redshift':r'z',
         'mass_ratio':r'q',
+        'log_mass_ratio':r'q',
         'lambda_2':r'\Lambda_2',
         'lambda_1':r'\Lambda_1',
         'cos_tilt_1':r'\cos(\theta_1)',
         'cos_tilt_2':r'\cos(\theta_2)',
         'symmetric_mass_ratio':r'\eta',
         }
-"""
 
-# label positions for minimal names
-#mtot_q_label_positions = {
-#    'GW190425A': (3.6,0.9,0),
-#    'GW190426A': (4,0.1,0),
-#    'GW190412A': (40,0.14,0),
-#    'GW190521A': (150,0.3,0),
-#    'GW190814A': (14, .05, 0),
-#    'GW190929A': (120,0.07,0),
-#    'GW190828B': (15,0.18,0),
-#    'GW190924A': (6.5,0.8,0)
-#}
-#
-#mc_chi_eff_label_positions = {
-#    'GW190425A': (1.1,-0.15,0),
-#    'GW190426A': (1.8,0.52,0),
-#    'GW190412A': (10,0.45,0),
-#    'GW190521A': (45,-0.55,0),
-#    'GW190814A': (4.5, -0.25, 0),
-#    'GW190517A': (20, 0.82, 0),
-#    'GW190514A': (20,-.7,0)
-#}
+column_name2long_name = {
+        'total_mass_source':r'\mathrm{Total}\: \mathrm{mass}\: M\:[M_\odot]',
+        'log_total_mass_source':r'\mathrm{Total}\: \mathrm{mass}\: M\:[M_\odot]',
+        'chirp_mass_source':r'\mathrm{Chirp}\: \mathrm{mass}\: \mathcal{{M}}\:[M_\odot]',
+        'log_chirp_mass_source':r'\mathrm{Chirp}\: \mathrm{mass}\: \mathcal{{M}}\:[M_\odot]',
+        'chirp_mass':r'\mathrm{Chirp}\: \mathrm{mass}\: \mathcal{{M}}^{\rm det}\:[M_\odot]',
+        'mass_1_source':r'\mathrm{Primary}\: \mathrm{mass}\: m_1\:[M_\odot]',
+        'mass_2_source':r'\mathrm{Secondary}\: \mathrm{mass}\: m_2\:[M_\odot]',
+        'chi_eff':r'\mathrm{Effective}\: \mathrm{inspiral}\: \mathrm{spin}\: \chi_{{\rm eff}}',
+        'chi_p':r'\mathrm{Effective}\: \mathrm{precession}\: \mathrm{spin}\: \chi_{{\rm p}}',
+        'chi_eff_infinity_only_prec_avg':r'\mathrm{Effective}\: \mathrm{inspiral}\: \mathrm{spin}\: \chi_{{\rm eff}}',
+        'chi_p_infinity_only_prec_avg':r'\mathrm{Effective}\: \mathrm{precession}\: \mathrm{spin}\: \chi_{{\rm p}}',
+        'luminosity_distance':r'\mathrm{Luminosity}\: \mathrm{distance}\: D_{\rm L}\:[{\rm Gpc}]',
+        'redshift':r'\mathrm{Redshift}\: z',
+        'mass_ratio':r'\mathrm{Mass}\: \mathrm{ratio}\: q',
+        'log_mass_ratio':r'\mathrm{Mass}\: \mathrm{ratio}\: q',
+        }
 
 # label positions when full names are used
 mtot_q_label_positions = {
-#    'GW191230A': ,
-#    'GW191109A': ,
-#    'GW191129A': ,
-#    'GW200223A': , 
-#    'GW200115A':,
-#    'GW200105A': ,
-#    'GW200311A': , 
-#
-    "GW200316I": (22.,0.4,275),
-    "GW200311L": (70.5,0.55,270),
-#    "GW200311A": (2.7, 0.5,315),
-    "GW200308G": (61,0.03,0),
-    "GW200306A": (29,0.5,272),
-    "GW200302A": (40,0.55,270),
-    "GW200225B": (27,0.55,273),
-    "GW200224H": (81,0.55,270),
-#    'GW200223A': (30, 0.07, 315)
-#    "GW200220A": (185,0.3,270),
-#    "GW200219B": (1,0,0),
-    "GW200219D": (45,0.5,270),
-#    "GW200216A": (1,0,0),
-    "GW200210B": (9,0.04,0),
-    "GW200209E": (40,0.5,272),
-#    "GW200208B": (1,0,0),
-    "GW200208I": (75,0.5,270),
-    "GW200202F": (13.5,0.55,273),
-#    "GW200201A": (1,0,0),
-#    "GW200129A": (1,0,0),
-    "GW200128C": (47,0.5,270),
-#    "GW200121A": (1,0,0),
-    "GW200115A": (4.3, 0.3, 280), 
-#    "GW200112A": (75,0.4,270),
-    "200105F": (8.3, 0.1, 300),
-    "GW191230H": (58, 0.55, 270),
-    "GW191222A": (80,0.25,280),
-#    "GW191219A": (1,0,0),
-    "GW191216G": (20.5,0.45,275),
-    "GW191215G": (32,0.45,275),
-    "GW191204B": (21, 0.4, 275),
-    "GW191204A": (33,0.55,270),
-    "GW191129F": (13, 0.4, 275),
-    "GW191127B": (102,0.55,270),
-    "GW191126C": (22.5,0.45,275),
-#    "GW191118A": (1,0,0),
-    "GW191109A": (140, 0.4, 270),
-#    "GW191105A": (1,0,0),
-    "GW191103A": (12,0.4,280)
+    'GW191204G': (15, 0.31, 0),
+    'GW200220E': (90, 0.15, 0),
+    'GW191129F': (6.8, 0.3, 0),
+    'GW191219E': (40.5, 0.03, 0),
+    'GW200225B': (23, 0.4, 0), 
+    'GW200115A': (6, 0.05, 0),
+    '200105F': (6.2, 0.39, 0),
+    'GW200210B': (25, 0.2, 0) 
+}
+
+mtot_logq_label_positions = {
+    'GW191204G': (5, -0.13, 0),
+    'GW200220E': (95, -0.77, 0),
+    'GW191219E': (8, -1.49, 0),
+    'GW200225B': (29, -0.52, 0),
+    'GW200210B': (34, -1, 0), 
+    'GW200115A': (2.15, -0.8, 0),
+    '200105F': (12, -0.67, 0),
+}
+
+logmtot_logq_label_positions = {
+    'GW191204G': (np.log10(5), -0.11, 0),
+    'GW200220E': (np.log10(95), -0.62, 0),
+    'GW191219E': (np.log10(7.5), -1.49, 0),
+    'GW200225B': (np.log10(29), -0.52, 0),
+    'GW200210B': (np.log10(34), -1, 0),
+    'GW200115A': (np.log10(2.15), -0.8, 0),
+    '200105F': (np.log10(12), -0.67, 0)
 }
 
 mc_chi_eff_label_positions = {
-    "GW200316I": (5.,0.55,0),
-    "GW200311L": (18,0.2,0),
-#    "GW200311A": (1.05, 0.22,0),
-    "GW200308G": (25,0.9,0),
-    "GW200306A": (12,0.7,0),
-    "GW200302A": (24,0.35,0),
-    "GW200225B": (7,-0.45,0),
-    "GW200224H": (30,-0.15,0),
-#    "GW200220A": (30,0.59,0),
-#    "GW200219B": (1,0,0),
-    "GW200219D": (15,-0.55,0),
-#    "GW200216A": (1,0,0),
-    "GW200210B": (4,-0.59,0),
-    "GW200209E": (17,0.3,0),
-#    "GW200208B": (1,0,0),
-    "GW200208I": (17,-0.48,0),
-    "GW200202F": (4.8,-0.15,0),
-#    "GW200201A": (1,0,0),
-#    "GW200129A": (1,0,0),
-    "GW200128C": (30,0.4,0),
-#    "GW200121A": (1,0,0),
-    "GW200115A": (1.5, -0.8, 0), 
-#    "GW200112A": (30,0,0),
-    "200105F": (1.8,0.35,0),
-    "GW191230H": (20, -0.5,0),
-    "GW191222A": (34,-.51,0),
-#    "GW191219A": (1,0,0),
-    "GW191216G": (2.5,0.25,0),
-    "GW191215G": (9.5,0.19,0),
-    "GW191204B": (5,-0.04,0),
-    "GW191204A": (12,0.42,0),
-    "GW191129F": (4.2, -0.5, 0),
-    "GW191127B": (33,0.65,0),
-    "GW191126C": (6,0.45,0),
-#    "GW191118A": (1,0,0),
-    "GW191109A": (25, 0.7, 0),
-#    "GW191105A": (1,0,0),
-    "GW191103A": (6,-.3,0)
+    'GW191204G': (9.1, 0.18, 0),
+    'GW200220E': (29, 0.67, 0),
+    'GW191219E': (2.7, -0.48, 0), 
+    'GW200225B': (14, -0.55, 0), 
+    'GW200115A': (1.2, -0.75, 0), 
+    '200105F': (1.3, 0.27, 0),
+    'GW200210B': (4., 0.42, 0) 
+}
+
+logmc_chi_eff_label_positions = {
+    'GW191204G': (np.log10(9.1), 0.18, 0),
+    'GW200220E': (np.log10(29), 0.67, 0),
+    'GW191219E': (np.log10(2.7), -0.48, 0),
+    'GW200225B': (np.log10(14), -0.55, 0),
+    'GW200115A': (np.log10(1.2), -0.75, 0),
+    '200105F': (np.log10(1.5), 0.27, 0),
+    'GW200210B': (np.log10(4), 0.42, 0)
+}
+
+logmc_chi_eff_infinity_only_prec_avg_label_positions = {
+    'GW191204G': (np.log10(9.1), 0.18, 0),
+    'GW200220E': (np.log10(29), 0.67, 0),
+    'GW191219E': (np.log10(2.7), -0.48, 0),
+    'GW200225B': (np.log10(14), -0.55, 0),
+    'GW200115A': (np.log10(1.2), -0.75, 0),
+    '200105F': (np.log10(1.5), 0.27, 0),
+    'GW200210B': (np.log10(4), 0.42, 0)
 }
 
 
-
 mtot_eta_label_positions = {
-    'GW191230A': (150,0.17,0),
-    'GW191109A': (0, 0, 0),
-    'GW191109A': (0, 0, 0), 
-    'GW200223A': (0, 0, 0), 
+    'GW191204G': (150,0.17,0),
+    'GW200220E': (0, 0, 0),
+    'GW191129F': (0, 0, 0), 
+    'GW200225B': (0, 0, 0), 
     'GW200115A': (0, 0, 0), 
-    'GW200105A': (0, 0, 0) 
+    'GW200210B': (0, 0, 0) 
 }
 
 contour_label_positions = {
     'total_mass_source_mass_ratio':mtot_q_label_positions,
+    'total_mass_source_log_mass_ratio':mtot_logq_label_positions,
+    'log_total_mass_source_log_mass_ratio':logmtot_logq_label_positions,
     'chirp_mass_source_chi_eff':mc_chi_eff_label_positions,
+    'log_chirp_mass_source_chi_eff':logmc_chi_eff_label_positions,
+    'log_chirp_mass_source_chi_eff_infinity_only_prec_avg':logmc_chi_eff_infinity_only_prec_avg_label_positions,
     'total_mass_source_symmetric_mass_ratio':mtot_eta_label_positions,
 }
 
