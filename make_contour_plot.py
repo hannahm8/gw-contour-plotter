@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 import matplotlib
 
-matplotlib.rcParams['text.usetex'] = True
+#matplotlib.rcParams['text.usetex'] = True
 matplotlib.rcParams['font.size'] = 9
 matplotlib.rcParams['savefig.dpi'] = 300
-matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
+#matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 matplotlib.rcParams['legend.fontsize'] = 9
 
 import sys

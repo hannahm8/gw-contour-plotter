@@ -232,12 +232,12 @@ The dotted line marks a zero effective inspiral spin.
 
 
 
-
+#the mass of the Sun (${\\rm M_{\odot}}$). [Solar mass](https://astronomy.swin.edu.au/cosmos/s/solar+mass) is a common unit for representing masses in astronomy. It is about $2\\times 10^{30}\\,{\\rm kg}$.
 st.subheader('Parameter definitions')
 st.markdown('''
 Here are some useful definitions and links to find out more. 
 
-* **Solar mass**: the mass of the Sun (${\\rm M_{\odot}}$). [Solar mass](https://astronomy.swin.edu.au/cosmos/s/solar+mass) is a common unit for representing masses in astronomy. It is about $2\\times 10^{30}\\,{\\rm kg}$.
+* **Solar mass**: TODO 
 * **Primary mass**: the mass of the more massive object in the binary (in solar masses). 
 * **Secondary mass** the mass of the less massive object in the binary (in solar masses). 
 * **Chirp mass**: a combination of the primary and secondary masses that is typically well measured by gravitational wave observations. The mathematical definition can be found [here](https://emfollow.docs.ligo.org/userguide/glossary.html#term-chirp-mass)
