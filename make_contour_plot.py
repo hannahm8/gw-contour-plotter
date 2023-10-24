@@ -421,7 +421,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
         ax.fill_between(m,m,200,color='lightgrey',zorder=10000)
         ax.plot(m,m,color='k',zorder=10001)
         ax.text(11,14,r'mass ratio = 1',rotation=25,color='k',\
-                    fontsize=10,zorder=10002)
+                    fontsize=9,zorder=10002)
 
         
         # shaded region for q=/50
@@ -429,7 +429,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
         ax.fill_between(m,m2,1,color='lightgrey',zorder=10000)
         ax.plot(m,m2,color='k',zorder=10001)
         ax.text(75,1.15,r'mass ratio = 1/50',rotation=25,color='k',\
-                    fontsize=10,zorder=10002)
+                    fontsize=9,zorder=10002)
 
 
     # count the number of highlighted events - this is so we can split the
