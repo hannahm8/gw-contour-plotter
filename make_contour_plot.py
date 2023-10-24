@@ -314,7 +314,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
                     bbox=dict(boxstyle='round',
                               facecolor='white',
                               edgecolor='none',
-                              alpha=.7))
+                              alpha=1.0))
 
         # reduce the number of ticks on the y axis
         yPositions = (-1.0, -0.5, 0.0, 0.5, 1.0)
@@ -352,7 +352,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
                     bbox=dict(boxstyle='round',
                               facecolor='white',
                               edgecolor='none',
-                              alpha=.7))
+                              alpha=1.0))
                               
         # mass ratio lines and labels
         log10Mt, log10q = massRatioLines_m2Equals3()
@@ -407,7 +407,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
                      bbox=dict(boxstyle='round',
                                facecolor='white',
                                edgecolor='none',
-                               alpha=.7))
+                               alpha=1.0))
 
 
         xValues = (2, 4, 7, 10, 20, 40, 70, 100, 200)

@@ -2,6 +2,7 @@
 
 #response_API = requests.get('https://zenodo.org/api/records/5117762/files/search_data_GWTC2p1.tar.xml.gz')
 #response_API = requests.get('https://zenodo.org/api/files/35914311-503b-452d-a67a-7a3587b91810/search_data_GWTC2p1.tar.xml.gz')
+#v1 = "https://zenodo.org/api/files/d7a70f99-e16a-48a2-ae27-0b1968b0840c/contour_data.tar.gz"
 
 import streamlit as st
 import requests, io
@@ -33,8 +34,10 @@ import make_contour_plot
 def downloadData(directory):
     if exists(directory)==True:
         st.markdown('Checked data is available, getting ready to plot...')
+        st.markdown('okay') 
     else: 
-        address = "https://zenodo.org/api/files/d7a70f99-e16a-48a2-ae27-0b1968b0840c/contour_data.tar.gz"
+        st.markdown('data not there')
+        address = "https://zenodo.org/api/files/38ea0af1-5d54-4b5d-8b7c-76ca214dd0fc/IGWN-GWTC3p0-v2-PEContours.tar.gz"
         st.markdown("Downloading contours, hold on - this can take several minutes...")
         r = requests.get(address)
         file_name = 'contour_data.tar.gz'
@@ -153,15 +156,15 @@ Select which parameter combination you would like to see below.
 
 
 color_file = './O3bScripts/colors.pkl'
-contour_dir = './contour_data'
+contour_dir = './IGWN-GWTC3p0-v2-PEContours' #'./contour_data'
 
 
 #################################################
 # Tempory! for now we are not doing this: 
-#downloadData(contour_dir)
+downloadData(contour_dir)
 # as the contours have not been updated on zenodo
 # instead, we are using local contours:
-contour_dir = './contour_data/'
+#contour_dir = './contour_data/'
 
 
 
@@ -257,7 +260,7 @@ Useful links:
 * Visit the [GWTC-3 data release](https://www.gw-openscience.org/GWTC-3/) at the Gravitational Wave Open Science Centre. 
 * Read the [GWTC-3 science summary](https://www.ligo.org/science/Publication-O3bCatalog/index.php).
 * Read [behind the scenes stories](https://www.ligo.org/magazine/LIGO-magazine-issue20.pdf#page=6) from some members of the GWTC-3 team in the [LIGO Magazine](https://www.ligo.org/magazine).
-* View the code for this app [here](https://github.com/hannahm8/gw-contour-plotter). 
+* View the code for this app [github.com/hannahm8/gw-contour-plotter](https://github.com/hannahm8/gw-contour-plotter). 
 
 **Acknowledgements:**
 This app makes use of data from the [LIGO](https://www.ligo.org/), [Virgo](https://www.virgo-gw.eu/), and [KAGRA](https://gwcenter.icrr.u-tokyo.ac.jp/en/) Collaborations.
