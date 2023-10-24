@@ -359,7 +359,7 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
         ax.text(np.log10(2.4),np.log10(.03),'Secondary mass = 3 solar masses',rotation=80,alpha=0.8)
         log10Mt, log10q = massRatioLines_m1Equals3()
         ax.plot(log10Mt,log10q,color='k',alpha=0.3,ls=':')
-        ax.text(np.log10(42.),np.log10(.0205),'Primary mass = 3 solar masses',rotation=324,alpha=0.8)
+        ax.text(np.log10(42.),np.log10(.019),'Primary mass = 3 solar masses',rotation=324,alpha=0.8)
                               
         # relabelling the y axis to mass ratio (instead of log10)
         yValues = (.02,.03,.05,.08,.12,.20,.30,.45,.65,1.)
