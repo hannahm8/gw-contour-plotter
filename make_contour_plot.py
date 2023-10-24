@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 import matplotlib
 
-#matplotlib.rcParams['text.usetex'] = True
 matplotlib.rcParams['font.size'] = 9
 matplotlib.rcParams['savefig.dpi'] = 300
-#matplotlib.rcParams['text.latex.preamble'] = r'\usepackage{amsmath}'
 matplotlib.rcParams['legend.fontsize'] = 9
 
 import sys
@@ -358,10 +356,10 @@ def make_plot(events,contour_dir,var1,var2,highlight_events,
         # mass ratio lines and labels
         log10Mt, log10q = massRatioLines_m2Equals3()
         ax.plot(log10Mt,log10q,color='k',alpha=0.3,ls='--')
-        ax.text(np.log10(2.6),np.log10(.03),'m2 = 3 solar masses',rotation=84,alpha=0.8)
+        ax.text(np.log10(2.4),np.log10(.03),'Secondary mass = 3 solar masses',rotation=80,alpha=0.8)
         log10Mt, log10q = massRatioLines_m1Equals3()
         ax.plot(log10Mt,log10q,color='k',alpha=0.3,ls=':')
-        ax.text(np.log10(60.),np.log10(.019),'m1 = 3 solar masses',rotation=324,alpha=0.8)
+        ax.text(np.log10(42.),np.log10(.0205),'Primary mass = 3 solar masses',rotation=324,alpha=0.8)
                               
         # relabelling the y axis to mass ratio (instead of log10)
         yValues = (.02,.03,.05,.08,.12,.20,.30,.45,.65,1.)
