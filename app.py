@@ -39,7 +39,8 @@ def downloadData(directory):
         #address = "https://zenodo.org/api/files/38ea0af1-5d54-4b5d-8b7c-76ca214dd0fc/IGWN-GWTC3p0-v2-PEContours.tar.gz"
         st.markdown("Downloading contours, hold on - this can take several minutes...")
         r = requests.get(address)
-        file_name = 'contour_data.tar.gz'
+        #file_name = 'contour_data.tar.gz'
+        file_name = "IGWN-GWTC3p0-v2-PEContours.tar.gz"
         with open(file_name, 'wb') as f:
             f.write(r.content)
 
