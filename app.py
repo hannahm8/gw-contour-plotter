@@ -35,8 +35,8 @@ def downloadData(directory):
     if exists(directory)==True:
         st.markdown('Checked data is available, getting ready to plot...')
     else:
-        #address = "https://zenodo.org/api/records/8177023/files/IGWN-GWTC3p0-v2-PEContours.tar.gz" 
-        address = "https://zenodo.org/api/files/38ea0af1-5d54-4b5d-8b7c-76ca214dd0fc/IGWN-GWTC3p0-v2-PEContours.tar.gz"
+        address = "https://zenodo.org/records/8177023/files/IGWN-GWTC3p0-v2-PEContours.tar.gz" 
+        #address = "https://zenodo.org/api/files/38ea0af1-5d54-4b5d-8b7c-76ca214dd0fc/IGWN-GWTC3p0-v2-PEContours.tar.gz"
         st.markdown("Downloading contours, hold on - this can take several minutes...")
         r = requests.get(address)
         #file_name = 'contour_data.tar.gz'
