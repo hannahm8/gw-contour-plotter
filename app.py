@@ -164,9 +164,10 @@ contour_dir = './IGWN-GWTC3p0-v2-PEContours' #'./contour_data'
 
 
 downloadData(contour_dir)
+# no longer in use
 # as the contours have not been updated on zenodo
 # instead, we are using local contours:
-#contour_dir = './contour_data/'
+# contour_dir = './contour_data/'
 
 
 
@@ -234,7 +235,6 @@ The dotted line marks a zero effective inspiral spin.
 
 
 
-#the mass of the Sun (${\\rm M_{\odot}}$). [Solar mass](https://astronomy.swin.edu.au/cosmos/s/solar+mass) is a common unit for representing masses in astronomy. It is about $2\\times 10^{30}\\,{\\rm kg}$.
 st.subheader('Parameter definitions')
 st.markdown('''
 Here are some useful definitions and links to find out more. 
